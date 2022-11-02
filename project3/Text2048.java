@@ -3,7 +3,7 @@ package project3;
     import java.util.Scanner;
 
     public class Text2048 {
-        private GameController game = new GameController();
+        private Board game = new Board();
         private Scanner scanner = new Scanner(System.in);
 
         public void run(){
