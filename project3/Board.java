@@ -45,6 +45,26 @@ public class Board {
         }
     }
 
+    public Tile getTile(int row, int col){
+        if (row < 4 || row > 10 && col < 4 || col > 10){
+
+            throw new IllegalArgumentException("either row or Cols was an invalid input");
+        }
+        else{
+            return b.get(row).get(col);
+            throw new IllegalArgumentException("either row or Cols was an invalid input");
+        }
+
+    }
+
+    public void setTile(int row, int col, Tile t){
+
+    }
+
+    public int getValue(int row, int col){
+
+    }
+
     public void moveVertical(int num){
 
     }
