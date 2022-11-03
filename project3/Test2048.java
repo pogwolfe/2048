@@ -1,10 +1,10 @@
 package project3;
 
 
-import org.junit.jupiter.api.Test;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertTrue;
 
 public class Test2048 {
 
@@ -96,13 +96,23 @@ public class Test2048 {
     }
     @Test
     public void testPower2v1() {
-
+        Tile t = new Tile(8);
+        assertTrue(t.power2(t.getValue()));
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testPower2v2() {
+        Tile t = new Tile(45);
+    }
 
+    public void testPower2v3() {
+        Tile t = new Tile(128);
+        assertTrue(t.power2(t.getValue()));
+    }
 
+    public void testPower2v4() {
+        Tile t = new Tile(1024);
+        assertTrue(t.power2(t.getValue()));
     }
     @Test
     public void testtoString1() {
