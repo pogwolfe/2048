@@ -4,10 +4,14 @@ package project3;
 import org.junit.jupiter.api.Test;
 import org.testng.annotations.Test;
 
+import static org.testng.AssertJUnit.assertEquals;
+
 public class Test2048 {
 
     @Test
-    public void testBoard1() {
+    public void testBoard1() {//
+    Board n = new Board();
+    assertEquals(n, 4);
 
 
     }
