@@ -100,7 +100,13 @@ public class Test2048 {
 
     }
     @Test
-    public void testPower2() {//
+    public void testPower2v1() {
+
+
+    }
+
+    @Test
+    public void testPower2v2() {
 
 
     }
