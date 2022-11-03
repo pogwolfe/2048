@@ -29,7 +29,7 @@ public class LL<E> { // still needs to be changed to fit 2048
         return size;
     }
 
-    public void set(int index, E number){ // changes the data at the index to inputted 'number'
+    public void set(int index, E data){ // changes the data at the index to inputted 'data'
         if(index < 0 || index >= size){
             throw new IndexOutOfBoundsException();
         } else {
@@ -39,12 +39,12 @@ public class LL<E> { // still needs to be changed to fit 2048
                 current = current.next;
                 count++;
             }
-            current.number = number; // sets the current Node data equal to the number passed in
+            current.data = data; // sets the current Node data equal to the data passed in
         }
     }
 
-    public void add(E number){ // allows us to add Nodes to the pre-existing LinkedList
-        Node<E> newNode = new Node<E>(number);
+    public void add(E data){ // allows us to add Nodes to the pre-existing LinkedList
+        Node<E> newNode = new Node<E>(data);
         if(head == null){ // if LinkedList was empty before creating this Node^
             head = newNode;
             tail = newNode;
@@ -87,15 +87,15 @@ public class LL<E> { // still needs to be changed to fit 2048
      */
     public int getNum(Node node){ // returns Node data in the form of an int
 
-        return (int) node.number;
+        return (int) node.data;
     }
 
-    private class Node<E>{ // defines what is inside a Node ('number', pointer to next Node)
-        E number; // stores the number
+    private class Node<E>{ // defines what is inside a Node ('data', pointer to next Node)
+        E data; // stores the data
         Node<E> next; // stores the next Node
 
-        public Node(E number){ // create a Node with a specified value
-            this.number = number;
+        public Node(E data){ // create a Node with a specified value
+            this.data = data;
         }
 
         public Node(){ // allows us to create an empty Node (no data, still has pointer)
@@ -104,7 +104,7 @@ public class LL<E> { // still needs to be changed to fit 2048
 
         public String toString(){ // toString for Nodes
 
-            return "" + number;
+            return "" + data;
         }
     }
 
