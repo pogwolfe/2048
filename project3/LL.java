@@ -79,16 +79,6 @@ public class LL<E> { // still needs to be changed to fit 2048
         }
     }
 
-    /**
-     * returns Node data cast as an int which is okay for our purposes because we know
-     * that 'E' is always going to be an int
-     * @param node is the desired Node to retrieve the data from
-     * @returns the integer held in the node
-     */
-    public int getNum(Node node){ // returns Node data in the form of an int
-
-        return (int) node.data;
-    }
 
     private class Node<E>{ // defines what is inside a Node ('data', pointer to next Node)
         E data; // stores the data
