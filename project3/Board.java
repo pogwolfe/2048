@@ -9,7 +9,7 @@ public class Board {
      * Holds the status of our game
      */
     private GameStatus gameStatus;
-
+    //this is a comment
     public Board(){ // default constructor will create a 4x4 game_board of LinkedLists
         game_board = new LL<LL>(4);
     }
@@ -38,7 +38,7 @@ public class Board {
         for(int i = 0; i < game_board.getSize(); i++) { // traverses through the game_board columns of LinkedLists
             int count = 0;
             while (count != game_board.getSize()) { // traverses through each LinkedList row of Nodes
-                game_board.get
+                game_board.get();
                 // finish after .get() method is completed
                 count++;
             }
