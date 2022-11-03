@@ -1,16 +1,16 @@
 package project3;
 
-public class LinkedList<E> { // still needs to be changed to fit 2048
+public class LL<E> { // still needs to be changed to fit 2048
 
     private Node<E> head;
     private Node<E> tail;
     private int size;
 
-    public LinkedList(){ // uses other LinkedList constructor
+    public LL(){ // uses other LinkedList constructor
         this(0);
     }
 
-    public LinkedList(int initial){ // LinkedList constructor
+    public LL(int initial){ // LinkedList constructor
         if (initial != 0 && initial > 0){ // create the initial Node
             head = new Node<E>();
             tail = head;
