@@ -96,7 +96,7 @@ public class Test2048 {
 
     }
     @Test
-    public void testPower2() {
+    public void testPower2() {//
 
 
     }
