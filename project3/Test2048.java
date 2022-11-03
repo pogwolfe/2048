@@ -12,24 +12,24 @@ public class Test2048 {
     public void testBoard1() {//
     Board n = new Board();
     assertEquals(n, 4);
-
+//need linked list
 
     }
     @Test
     public void testBoard2() {
-
+//need linked list
 
     }
 
 
     @Test(expected = IllegalArgumentException.class)
     public void testBoard3() {
-
+//need linked list
 
     }
     @Test
     public void testBoard4() {
-
+//need linked list
 
     }
     @Test
@@ -50,49 +50,48 @@ public class Test2048 {
 
     @Test
     public void testHasEmpty1() {
-
+//need linked list
 
     }
     @Test(expected = IllegalArgumentException.class)
     public void testHasEmpty2() {
-
+//need linked list
 
     }
 
     @Test
     public void testgetTile1() {
-
+//need linked list
 
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testgetTile2() {
-
+//need linked list
 
     }
 
     @Test
     public void testsetTile1() {
-
-
+//need linked list
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testsetTile2() {
-
+//need linked list
 
     }
 
     @Test
     public void testgetValue1() {
-
-
+        Tile t = new Tile(64);
+        assertEquals(t.getValue(),64);
     }
 
     @Test
     public void testgetValue1v2() {
-
-
+        Tile t = new Tile(128);
+        assertEquals(t.getValue(),128);
     }
     @Test
     public void testPower2v1() {
