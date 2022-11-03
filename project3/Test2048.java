@@ -34,23 +34,18 @@ public class Test2048 {
     }
     @Test
     public void testTile1() {
-
-
+        Tile t = new Tile();
+        assertEquals(t.getValue(), 4);
     }
     @Test
     public void testTile2() {
-
-
+        Tile t = new Tile(8);
+        assertEquals(t.getValue(), 8);
     }
     @Test
     public void testTile3() {
-
-
-    }
-    @Test
-    public void testTile4() {
-
-
+        Tile t = new Tile(1024);
+        assertEquals(t.getValue(), 1024);
     }
 
     @Test
@@ -95,13 +90,12 @@ public class Test2048 {
     }
 
     @Test
-    public void testgetValue12() {
+    public void testgetValue1v2() {
 
 
     }
     @Test
     public void testPower2v1() {
-
 
     }
 
@@ -116,7 +110,7 @@ public class Test2048 {
 
     }
     @Test
-    public void testtoString2() {//
+    public void testtoString2() {
 
 
     }
