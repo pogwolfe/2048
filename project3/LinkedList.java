@@ -29,17 +29,18 @@ public class LinkedList<E> { // still needs to be changed to fit 2048
         return size;
     }
 
-    public void set(int index, E number){ // changes the data at the index to 'number'
+    public void set(int index, E number){ // changes the data at the index to inputted 'number'
         if(index < 0 || index >= size){
             throw new IndexOutOfBoundsException();
+        } else {
+            int count = 0;
+            Node<E> current = head;
+            while (count < index) { // traverses through the Nodes until at the specified Node
+                current = current.next;
+                count++;
+            }
+            current.number = number; // sets the current Node data equal to the number passed in
         }
-        int count = 0;
-        Node<E> current = head;
-        while(count < index){ // traverses through the Nodes until we're at the specified Node
-            current = current.next;
-            count++;
-        }
-        current.number = number; // sets the current Node data equal to the number passed in
     }
 
     public void add(E number){ // allows us to add Nodes to the pre-existing LinkedList
@@ -54,6 +55,41 @@ public class LinkedList<E> { // still needs to be changed to fit 2048
         size++;
     }
 
+    public Node remove(int index){ // resets Node data and returns specified Node
+        if(index < 0 || index >= size){
+            throw new IndexOutOfBoundsException();
+        } else {
+            Node newNode = get(index); // creates a temporary Node newNode with data from OG Node
+            set(index, 0); // resets OG Node data to 0
+            return newNode; // returns newNode with data from OG Node before the reset
+        }
+    }
+
+    public Node get(int index){ // returns the specified Node from the desired LinkedList
+        if(index < 0 || index >= size){
+            throw new IndexOutOfBoundsException();
+        } else {
+            int count = 0;
+            Node<E> current = head;
+            while(count < index){
+                current = current.next;
+                count++;
+            }
+            return current;
+        }
+    }
+
+    /**
+     * returns Node data cast as an int which is okay for our purposes because we know
+     * that 'E' is always going to be an int
+     * @param node is the desired Node to retrieve the data from
+     * @returns the integer held in the node
+     */
+    public int getNum(Node node){ // returns Node data in the form of an int
+
+        return (int) node.number;
+    }
+
     private class Node<E>{ // defines what is inside a Node ('number', pointer to next Node)
         E number; // stores the number
         Node<E> next; // stores the next Node
@@ -65,9 +101,14 @@ public class LinkedList<E> { // still needs to be changed to fit 2048
         public Node(){ // allows us to create an empty Node (no data, still has pointer)
 
         }
+
+        public String toString(){ // toString for Nodes
+
+            return "" + number;
+        }
     }
 
-    public String toString(){
+    public String toString(){ // toString for LinkedList
         String str = "";
         // how to retrieve a specific Node's data?
         return str;
