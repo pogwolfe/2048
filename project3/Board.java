@@ -52,7 +52,7 @@ public class Board {
         }
         else{
             return b.get(row).get(col);
-            throw new IllegalArgumentException("either row or Cols was an invalid input");
+
         }
 
     }
