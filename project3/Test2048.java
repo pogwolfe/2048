@@ -1,7 +1,7 @@
 package project3;
 
 
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 public class Test2048 {
 
