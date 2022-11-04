@@ -29,7 +29,7 @@ public class LL<E> { // still needs to be changed to fit 2048
         return size;
     }
 
-    public void set(int index, int data){ // changes the data at the index to inputted 'data'
+    public void set(int index, E data){ // changes the data at the index to inputted 'data'
         if(index < 0 || index >= size){
             throw new IndexOutOfBoundsException();
         } else {
@@ -44,7 +44,7 @@ public class LL<E> { // still needs to be changed to fit 2048
     }
 
     public void add(E data){ // allows us to add Nodes to the pre-existing LinkedList
-        Node<E> newNode = new Node<E>((Integer) data);
+        Node<E> newNode = new Node<E>(data);
         if(head == null){ // if LinkedList was empty before creating this Node^
             head = newNode;
             tail = newNode;
@@ -54,15 +54,47 @@ public class LL<E> { // still needs to be changed to fit 2048
         }
         size++;
     }
-
-    public Node remove(int index){ // resets Node data and returns specified Node
-        if(index < 0 || index >= size){
+    // make special cases for first and last
+    // set the "next" Node for the Node before 'index' equal to the one after 'index' and
+    // Java deletes the Node on its own
+    public E remove(int index){ // points Node before 'index' to Node after 'index' and Java erases the Node at 'index' since there's nothing pointing to it
+        if(index < 0 || index >= size){ // ensures inputted 'index' is possible
             throw new IndexOutOfBoundsException();
-        } else {
-            Node newNode = get(index); // creates a temporary Node newNode with data from OG Node
-            set(index, 0); // resets OG Node data to 0
-            return newNode; // returns newNode with data from OG Node before the reset
         }
+        if(index == 0) { // if we're removing the first Node
+            Node<E> copy = head; // makes copy of Node at 'index'
+            head = head.next; // erases Node
+            return copy.data; // returns copy of data at 'index'
+        }
+        if(index == size - 1){ // if we're removing the last Node
+            int count = 0;
+            Node<E> current = head;
+            while(count < size - 2){
+                current = current.next;
+                count++;
+            } // current should be equal to the Node before the last Node
+            Node<E> copy = tail; // makes copy of Node at 'index'
+            current.next = null; // point one before index to null
+            tail = current; // set Tail equal to our new last Node
+            return copy.data; // returns copy of data at 'index'
+        }
+        // if we're removing any other Node besides first or last
+        int count = 0;
+        Node<E> current = head;
+        while (count < index - 1) { // traverses up to one before the specified index
+            current = current.next;
+            count++;
+        } // 'current' should now be equal to the Node preceding 'index'
+        Node<E> before = current; // saves the Node before 'index'
+        current = current.next; // goes to Node at 'index'
+        Node<E> copy = current; // makes a copy of Node at 'index' before it gets deleted
+        current = current.next; // goes to Node 1 after 'index'
+        Node<E> after = current; // saves the Node after 'index'
+
+        before.next = after; // sets the previous Node's "next Node" equal to the one after 'index'
+        // -, effectively erasing the Node in between since there is nothing
+        // -pointing to it
+        return copy.data; // returns data from the Node at 'index' before it was erased
     }
 
     public E get(int index){ // returns the specified Node from the desired LinkedList
@@ -81,10 +113,10 @@ public class LL<E> { // still needs to be changed to fit 2048
 
 
     private class Node<E>{ // defines what is inside a Node ('data', pointer to next Node)
-        int data; // stores the data
+        E data; // stores the data
         Node<E> next; // stores the next Node
 
-        public Node(int data){ // create a Node with a specified value
+        public Node(E data){ // create a Node with a specified value
             this.data = data;
         }
 
