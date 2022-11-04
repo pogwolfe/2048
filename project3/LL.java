@@ -65,7 +65,7 @@ public class LL<E> { // still needs to be changed to fit 2048
         }
     }
 
-    public Node get(int index){ // returns the specified Node from the desired LinkedList
+    public E get(int index){ // returns the specified Node from the desired LinkedList
         if(index < 0 || index >= size){
             throw new IndexOutOfBoundsException();
         } else {
@@ -75,7 +75,7 @@ public class LL<E> { // still needs to be changed to fit 2048
                 current = current.next;
                 count++;
             }
-            return current;
+            return current.data;
         }
     }
 
