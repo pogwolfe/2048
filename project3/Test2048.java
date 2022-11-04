@@ -1,6 +1,7 @@
 package project3;
 
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.testng.AssertJUnit.assertEquals;
@@ -115,13 +116,13 @@ public class Test2048 {
     }
     @Test
     public void testtoString1() {
-
-
+        Tile t = new Tile(2);
+        Assert.assertEquals(t.toString(), 2);
     }
     @Test
     public void testtoString2() {
-
-
+        Tile t = new Tile(64);
+        Assert.assertEquals(t.toString(), 64);
     }
 }
 
