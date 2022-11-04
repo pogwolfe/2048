@@ -1,27 +1,22 @@
 package project3;
 
-import org.junit.Before;
+
 import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.*;
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertTrue;
 
 public class Test2048 {
 
     @Test
     public void testBoard1() {//
     Board n = new Board();
-    LL game_board = new LL<LL>(4);
-    assertEquals(n, game_board);
+    assertEquals(n, 4);
 //need linked list
 
     }
     @Test
     public void testBoard2() {
-        Board n = new Board(5);
-        LL game_board = new LL<LL>(5);
-        assertEquals(n, game_board);
-
 //need linked list
 
     }
@@ -29,7 +24,11 @@ public class Test2048 {
 
     @Test(expected = IllegalArgumentException.class)
     public void testBoard3() {
-        Board n = new Board(11);
+//need linked list
+
+    }
+    @Test
+    public void testBoard4() {
 //need linked list
 
     }
@@ -96,13 +95,23 @@ public class Test2048 {
     }
     @Test
     public void testPower2v1() {
-
+        Tile t = new Tile(8);
+        assertTrue(t.power2(t.getValue()));
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testPower2v2() {
+        Tile t = new Tile(45);
+    }
 
+    public void testPower2v3() {
+        Tile t = new Tile(128);
+        assertTrue(t.power2(t.getValue()));
+    }
 
+    public void testPower2v4() {
+        Tile t = new Tile(1024);
+        assertTrue(t.power2(t.getValue()));
     }
     @Test
     public void testtoString1() {
