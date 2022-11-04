@@ -37,7 +37,7 @@ public class Board {
     public boolean hasEmpty(){
         for(int i = 0; i < game_board.getSize(); i++) { // traverses through the game_board columns of LinkedLists
             for(int j = 0; j < game_board.getSize(); j++) { // traverses through each LinkedList row of Nodes
-                if(game_board.get(i).get(j).getValue() == 0){
+                if(game_board.get(i).get(j).getValue() == -1){
                     return true;
                 }
             }
@@ -58,11 +58,13 @@ public class Board {
     }
 
     public void setTile(int row, int col, Tile t){
-
     }
 
     public int getValue(int row, int col){
-
+        if (game_board.get(row).get(col).getValue() == null) /*fix*/ {
+            return -1; //returns -1 if empty
+        }
+        return game_board.get(row).get(col).getValue(); //returns val inside of tile (if not empty)
     }
 
     public void moveVertical(int num){
