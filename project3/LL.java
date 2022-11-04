@@ -110,8 +110,10 @@ public class LL<E> { // still needs to be changed to fit 2048
             return current.data;
         }
     }
-    public void clearBoard () {
-
+    public void clear () {
+        head = null;
+        tail = null;
+        size = 0;
     }
 
 
