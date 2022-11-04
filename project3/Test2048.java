@@ -115,12 +115,12 @@ public class Test2048 {
         assertTrue(t.power2(t.getValue()));
     }
     @Test
-    public void testtoString1() {
+    public void testToStringTile1() {
         Tile t = new Tile(2);
         Assert.assertEquals(t.toString(), 2);
     }
     @Test
-    public void testtoString2() {
+    public void testToStringTile2() {
         Tile t = new Tile(64);
         Assert.assertEquals(t.toString(), 64);
     }
