@@ -37,7 +37,7 @@ public class Board {
     public boolean hasEmpty(){
         for(int i = 0; i < game_board.getSize(); i++) { // traverses through the game_board columns of LinkedLists
             for(int j = 0; j < game_board.getSize(); j++) { // traverses through each LinkedList row of Nodes
-                if(game_board.get(i).get(j).getValue() == -1){
+                if(game_board.get(i).get(j).getValue() == -1){ // (-1 means empty in our getValue() method)
                     return true;
                 }
             }
@@ -46,12 +46,13 @@ public class Board {
     }
 
     public Tile getTile(int row, int col){
-        if (row < 4 || row > 10 && col < 4 || col > 10){
+        if (row < 4 || row > 10 || col < 4 || col > 10){
 
             throw new IllegalArgumentException("either row or Cols was an invalid input");
         }
         else{
-            return b.get(row).get(col);
+            return game_board.get(col).get(row);
+            // first goes vertically through LinkedLists, then Horizontally through Tiles
 
         }
 
