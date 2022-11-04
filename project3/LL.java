@@ -29,7 +29,7 @@ public class LL<E> { // still needs to be changed to fit 2048
         return size;
     }
 
-    public void set(int index, E data){ // changes the data at the index to inputted 'data'
+    public void set(int index, int data){ // changes the data at the index to inputted 'data'
         if(index < 0 || index >= size){
             throw new IndexOutOfBoundsException();
         } else {
@@ -44,7 +44,7 @@ public class LL<E> { // still needs to be changed to fit 2048
     }
 
     public void add(E data){ // allows us to add Nodes to the pre-existing LinkedList
-        Node<E> newNode = new Node<E>(data);
+        Node<E> newNode = new Node<E>((Integer) data);
         if(head == null){ // if LinkedList was empty before creating this Node^
             head = newNode;
             tail = newNode;
@@ -81,10 +81,10 @@ public class LL<E> { // still needs to be changed to fit 2048
 
 
     private class Node<E>{ // defines what is inside a Node ('data', pointer to next Node)
-        E data; // stores the data
+        int data; // stores the data
         Node<E> next; // stores the next Node
 
-        public Node(E data){ // create a Node with a specified value
+        public Node(int data){ // create a Node with a specified value
             this.data = data;
         }
 
