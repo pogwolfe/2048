@@ -37,10 +37,12 @@ public class Board {
     public boolean hasEmpty(){
         for(int i = 0; i < game_board.getSize(); i++) { // traverses through the game_board columns of LinkedLists
             for(int j = 0; j < game_board.getSize(); j++) { // traverses through each LinkedList row of Nodes
-                game_board.get(i).get(j);
-                // finish after .get() method is completed
+                if(game_board.get(i).get(j).getValue() == 0){
+                    return true;
+                }
             }
         }
+        return false;
     }
 
     public Tile getTile(int row, int col){
