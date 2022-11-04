@@ -110,6 +110,9 @@ public class LL<E> { // still needs to be changed to fit 2048
             return current.data;
         }
     }
+    public void clearBoard () {
+
+    }
 
 
     private class Node<E>{ // defines what is inside a Node ('data', pointer to next Node)
