@@ -49,8 +49,7 @@ public class Board {
         if (row < 4 || row > 10 || col < 4 || col > 10){
 
             throw new IllegalArgumentException("either row or Cols was an invalid input");
-        }
-        else{
+        } else{
             return game_board.get(col).get(row);
             // first goes vertically through LinkedLists, then Horizontally through Tiles
 
@@ -59,6 +58,13 @@ public class Board {
     }
 
     public void setTile(int row, int col, Tile t){
+        if (row < 4 || row > 10 || col < 4 || col > 10){
+
+            throw new IllegalArgumentException("either row or Cols was an invalid input");
+        } else{
+            // remove Tile from game_board
+            // replace Tile with new Tile t
+        }
     }
 
     public int getValue(int row, int col){

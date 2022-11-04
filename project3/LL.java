@@ -43,7 +43,7 @@ public class LL<E> { // still needs to be changed to fit 2048
         }
     }
 
-    public void add(E data){ // allows us to add Nodes to the pre-existing LinkedList
+    public void add(E data){ // allows us to add Nodes to the end of a LinkedList
         Node<E> newNode = new Node<E>(data);
         if(head == null){ // if LinkedList was empty before creating this Node^
             head = newNode;
@@ -54,6 +54,24 @@ public class LL<E> { // still needs to be changed to fit 2048
         }
         size++;
     }
+    public void add(int index, E data){ // allows us to add Nodes to a specific index in the LinkedList
+        Node<E> newNode = new Node<E>(data);
+        if(head == null){
+            head = newNode;
+            tail = newNode;
+        } else{
+            int count = 0;
+            Node<E> current = head;
+            while(count < index){
+                current = current.next;
+                count++;
+            }
+            // FINISH: add the data into the LinkedList
+        }
+
+    }
+    /**TODO: Redo add() method using get() and .next.next
+     * **/
     // make special cases for first and last
     // set the "next" Node for the Node before 'index' equal to the one after 'index' and
     // Java deletes the Node on its own
@@ -64,6 +82,7 @@ public class LL<E> { // still needs to be changed to fit 2048
         if(index == 0) { // if we're removing the first Node
             Node<E> copy = head; // makes copy of Node at 'index'
             head = head.next; // erases Node
+            size--;
             return copy.data; // returns copy of data at 'index'
         }
         if(index == size - 1){ // if we're removing the last Node
@@ -76,6 +95,7 @@ public class LL<E> { // still needs to be changed to fit 2048
             Node<E> copy = tail; // makes copy of Node at 'index'
             current.next = null; // point one before index to null
             tail = current; // set Tail equal to our new last Node
+            size--;
             return copy.data; // returns copy of data at 'index'
         }
         // if we're removing any other Node besides first or last
@@ -94,10 +114,27 @@ public class LL<E> { // still needs to be changed to fit 2048
         before.next = after; // sets the previous Node's "next Node" equal to the one after 'index'
         // -, effectively erasing the Node in between since there is nothing
         // -pointing to it
+        size--;
         return copy.data; // returns data from the Node at 'index' before it was erased
-    }
+    } // use .next.next
 
-    public E get(int index){ // returns the specified Node from the desired LinkedList
+    public void removeAll(){
+        head = null;
+        tail = null;
+        size = 0;
+    }
+    public E[] toArray(){
+        Object[] arr = new Object[size];
+        Node<E> current = head;
+        int count = 0;
+        while(current != null){
+            arr[count] = current.data;
+            current = current.next;
+            count++;
+        }
+        return (E[]) arr;
+    }
+    public E get(int index){ // returns the specified Node data from the desired LinkedList
         if(index < 0 || index >= size){
             throw new IndexOutOfBoundsException();
         } else {
@@ -109,7 +146,7 @@ public class LL<E> { // still needs to be changed to fit 2048
             }
             return current.data;
         }
-    }
+    } // create getNode() method then use it in get()
 
 
     private class Node<E>{ // defines what is inside a Node ('data', pointer to next Node)
