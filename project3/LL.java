@@ -111,9 +111,9 @@ public class LL<E> { // still needs to be changed to fit 2048
         }
     }
     public void clear () {
-        head = null;
-        tail = null;
-        size = 0;
+        head = null; //head points to nothing
+        tail = null; //tail points to nothing
+        size = 0; //size is now 0
     }
 
 
