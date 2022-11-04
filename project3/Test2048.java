@@ -12,12 +12,16 @@ public class Test2048 {
     @Test
     public void testBoard1() {//
     Board n = new Board();
-    assertEquals(n, 4);
+       LL game_board = new LL<LL>(4);
+    assertEquals(n, game_board);
 //need linked list
 
     }
     @Test
     public void testBoard2() {
+        Board n = new Board(5);
+        LL game_board = new LL<LL>(5);
+        assertEquals(n, game_board);
 //need linked list
 
     }
@@ -25,14 +29,11 @@ public class Test2048 {
 
     @Test(expected = IllegalArgumentException.class)
     public void testBoard3() {
+        Board n = new Board(11);
 //need linked list
 
     }
-    @Test
-    public void testBoard4() {
-//need linked list
 
-    }
     @Test
     public void testTile1() {
         Tile t = new Tile();
