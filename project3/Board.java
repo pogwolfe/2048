@@ -44,7 +44,7 @@ public class Board {
     }
 
     public Tile getTile(int row, int col){
-        if (row < 4 || row > 10 && col < 4 || col > 10){
+        if (check(row,col)){
 
             throw new IllegalArgumentException("either row or Cols was an invalid input");
         }
@@ -56,7 +56,7 @@ public class Board {
     }
 
     public void setTile(int row, int col, Tile t){
-        if (row < 4 || row > 10 && col < 4 || col > 10){
+        if (check(row,col)){
 
             throw new IllegalArgumentException("either row or Cols was an invalid input");
         }
@@ -68,6 +68,29 @@ public class Board {
     }
 
     public int getValue(int row, int col){
+        if (check(row,col)){
+
+            throw new IllegalArgumentException("either row or Cols was an invalid input");
+        }
+        else{
+           if (getTile(row,col) == null){
+               return -1;
+           }
+           else {
+               int result = game_board.get(row).get(col).getValue();
+           }
+
+        }
+
+    }
+
+    private boolean check(int row, int col){
+        if ((row < 4 || row > 10) && (col < 4 || col > 10)){
+            return true;
+        }
+        else{
+            return false;
+        }
 
     }
 
