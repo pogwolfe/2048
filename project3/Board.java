@@ -9,7 +9,6 @@ public class Board {
      * Holds the status of our game
      */
     private GameStatus gameStatus;
-    //this is a comment
     public Board(){ // default constructor will create a 4x4 game_board of LinkedLists
         game_board = new LL<LL<Tile>>(4); // creates a LinkedList of LinkedLists
     }
