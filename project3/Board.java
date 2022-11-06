@@ -56,6 +56,14 @@ public class Board {
     }
 
     public void setTile(int row, int col, Tile t){
+        if (row < 4 || row > 10 && col < 4 || col > 10){
+
+            throw new IllegalArgumentException("either row or Cols was an invalid input");
+        }
+        else{
+          t = game_board.get(row).get(col);
+
+        }
 
     }
 
