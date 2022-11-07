@@ -9,7 +9,6 @@ public class Board {
      * Holds the status of our game
      */
     private GameStatus gameStatus;
-    //this is a comment
     public Board(){ // default constructor will create a 4x4 game_board of LinkedLists
         game_board = new LL<LL<Tile>>(4); // creates a LinkedList of LinkedLists
     }
@@ -37,41 +36,61 @@ public class Board {
     public boolean hasEmpty(){
         for(int i = 0; i < game_board.getSize(); i++) { // traverses through the game_board columns of LinkedLists
             for(int j = 0; j < game_board.getSize(); j++) { // traverses through each LinkedList row of Nodes
-                if(game_board.get(i).get(j).getValue() == -1){ // (-1 means empty in our getValue() method)
-                    return true;
-                }
+                game_board.get(i).get(j);
+                // finish after .get() method is completed
             }
         }
-        return false;
     }
 
     public Tile getTile(int row, int col){
-        if (row < 4 || row > 10 || col < 4 || col > 10){
+        if (check(row,col)){
 
             throw new IllegalArgumentException("either row or Cols was an invalid input");
-        } else{
-            return game_board.get(col).get(row);
-            // first goes vertically through LinkedLists, then Horizontally through Tiles
+        }
+        else{
+            return game_board.get(row).get(col);
 
         }
 
     }
 
     public void setTile(int row, int col, Tile t){
-        if (row < 4 || row > 10 || col < 4 || col > 10){
+        if (check(row,col)){
 
             throw new IllegalArgumentException("either row or Cols was an invalid input");
-        } else{
-            // remove Tile from game_board
-            // replace Tile with new Tile t
         }
+        else{
+          t = game_board.get(row).get(col);
+
+        }
+
     }
 
     public int getValue(int row, int col){
-        if (game_board.get(row).get(col).getValue() == null) /*fix*/ {
-            return -1; //returns -1 if empty
+        if (check(row,col)){
+
+            throw new IllegalArgumentException("either row or Cols was an invalid input");
         }
-        return game_board.get(row).get(col).getValue(); //returns val inside of tile (if not empty)
+        else{
+           if (getTile(row,col) == null){
+               return -1;
+           }
+           else {
+               int result = game_board.get(row).get(col).getValue();
+           }
+
+        }
+
+    }
+
+    private boolean check(int row, int col){
+        if ((row < 4 || row > 10) && (col < 4 || col > 10)){
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 
     public void moveVertical(int num){
