@@ -36,38 +36,41 @@ public class Board {
     public boolean hasEmpty(){
         for(int i = 0; i < game_board.getSize(); i++) { // traverses through the game_board columns of LinkedLists
             for(int j = 0; j < game_board.getSize(); j++) { // traverses through each LinkedList row of Nodes
-                game_board.get(i).get(j);
-                // finish after .get() method is completed
+                if(game_board.get(i).get(j).getValue() != -1){
+                    return true; // returns true if there's an empty space
+                }
             }
         }
+        return false;
     }
 
     public Tile getTile(int row, int col){
-        if (check(row,col)){
+        if (!check(row,col)){ // if our LinkedList doesn't pass the check()
 
             throw new IllegalArgumentException("either row or Cols was an invalid input");
         }
         else{
-            return game_board.get(row).get(col);
+            return game_board.get(col).get(row);
 
         }
 
     }
 
     public void setTile(int row, int col, Tile t){
-        if (check(row,col)){
+        if (!check(row,col)){
 
             throw new IllegalArgumentException("either row or Cols was an invalid input");
         }
         else{
-          t = game_board.get(row).get(col);
+          t = game_board.get(col).get(row); // this would be setting the inputted value 't'-
+            // -equal to game_board value rather than vice versa?
 
         }
 
     }
 
     public int getValue(int row, int col){
-        if (check(row,col)){
+        if (!check(row,col)){
 
             throw new IllegalArgumentException("either row or Cols was an invalid input");
         }
@@ -76,14 +79,14 @@ public class Board {
                return -1;
            }
            else {
-               int result = game_board.get(row).get(col).getValue();
+               return game_board.get(col).get(row).getValue();
            }
 
         }
 
     }
 
-    private boolean check(int row, int col){
+    private boolean check(int row, int col){ // returns true if values are within parameters
         if ((row < 4 || row > 10) && (col < 4 || col > 10)){
             return true;
         }
