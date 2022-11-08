@@ -21,11 +21,11 @@ public class Tile {
         }
     }
 
-    public int getValue(){
+    public int getTileValue(){
         return value;
     }
 
-    public void setValue(int value){
+    public void setTileValue(int value){
         if(power2(value)) {
             this.value = value;
         } else{

@@ -79,7 +79,7 @@ public class Board {
                return -1;
            }
            else {
-               return game_board.get(col).get(row).getValue();
+               return game_board.get(col).get(row).getTileValue();
            }
 
         }
@@ -100,8 +100,35 @@ public class Board {
 
     }
 
-    public void moveHorizontal(int num){
+    public void moveHorizontal(int num){ // 1 if moving right, -1 if moving left
 
+        if(num == 1){ // if moving right
+            for(int i = 0; i < game_board.size() - 1; i++){
+                for(int j = 0; j < game_board.size() - 2; j++){ // don't need to check last value, can't move
+                    if(game_board.getValue(i, j) == game_board.getValue(i, j+1)){ // if equal
+                        game_board.get(i).set(j+1, game_board.getValue(i, j) * 2); // sets adjacent value equal to double
+                    }
+                    if(game_board.getValue(i, j + 1) == -1){
+                        game_board.get(i).set(j + 1, game_board.getValue(i, j)); // sets adjacent value equal to previous
+                        game_board.get(i).set(j, null); // clears previous value
+                    }
+                }
+            }
+
+        } else{ // if moving left
+            for(int i = game_board.size() - 1; i == 0; i--){
+                for(int j = game_board.size() - 1; j < 2; j--){ // don't need to check last value, can't move
+                    if(game_board.getValue(i, j) == game_board.getValue(i, j - 1)){ // if equal
+                        game_board.get(i).set(j-1, game_board.get(i).get(j) * 2); // sets adjacent value equal to double
+                    }
+                    if(game_board.getValue(i, j - 1) == -1){
+                        game_board.get(i).set(j - 1, game_board.getValue(i, j)); // sets adjacent value equal to previous
+                        game_board.get(i).set(j, null); // clears previous value
+                    }
+                }
+            }
+
+        }
     }
 
     public void printBoard(){
