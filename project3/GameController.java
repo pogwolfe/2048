@@ -7,7 +7,6 @@ public class GameController { // has association wth Board, GameStatus, Text2048
     public GameController(){
         Board board = new Board();
         WinVal = 2048;
-        // needs to initialize the random
         newTile();
 
 
@@ -16,7 +15,6 @@ public class GameController { // has association wth Board, GameStatus, Text2048
     public GameController(int size, int Val){
         Board board = new Board(size);
         WinVal = Val;
-        // needs to initialize the random
         newTile();
 
     }
@@ -27,7 +25,11 @@ public class GameController { // has association wth Board, GameStatus, Text2048
 
     }
     public void reset(){
-
+        for (int i = 0; i < game_board.getBoard().size(); i++){
+            for (int j =0; game_board.getBoard().size(); j++){
+                game_board.get(i).set(j, null);
+            }
+        }
     }
     private void checkWin(){
         for (int i = 0; i < game_board.getBoard().size(); i++) {
@@ -56,6 +58,8 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
 
     }
+
+
 
 
 }
