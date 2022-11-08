@@ -99,7 +99,7 @@ public class Board {
     public void moveVertical(int num){
 
     }
-
+    /**
     public void moveHorizontal(int num){ // 1 if moving right, -1 if moving left
 
         if(num == 1){ // if moving right
@@ -114,7 +114,7 @@ public class Board {
                     }
                 }
             }
-
+            newTile();
         } else{ // if moving left
             for(int i = game_board.size() - 1; i == 0; i--){
                 for(int j = game_board.size() - 1; j < 2; j--){ // don't need to check last value, can't move
@@ -127,8 +127,28 @@ public class Board {
                     }
                 }
             }
-
+            newTile();
         }
+    }
+**/
+    public void recurseLeft(int row){
+
+    }
+    public void recurseRight(int row){
+        if(row == game_board.size() - 2){ // break case
+            // exit recursion
+        }
+
+       // if(game_board.){
+
+        //}
+
+    }
+    public void recurseUp(int col){
+
+    }
+    public void recurseDown(int col){
+
     }
 
     public void printBoard(){
