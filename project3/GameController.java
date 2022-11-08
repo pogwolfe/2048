@@ -30,12 +30,30 @@ public class GameController { // has association wth Board, GameStatus, Text2048
 
     }
     private void checkWin(){
+        for (int i = 0; i < game_board.getBoard().size(); i++) {
+            for (int j = 0; j < game_board.getBoard().size(); j++) {
+                if (game_board.getValue(i, j) == 2048) {
+                    game.getStatus() = GameStatus.WON;
+                }
+            }
+        }
 
     }
     private void checkLoss(){
-
+        for (int i = 0; i < game_board.getBoard().size(); i++) {
+            for (int j = 0; j < game_board.getBoard().size(); j++) {
+                if (game_board.getValue(i, j) == null) {
+                    game.getStatus() = GameStatus.IN_PROGRESS;
+                }
+            }
+        }
+        game.getStatus() = GameStatus.LOST;
     }
+
     private boolean findSimilarNeighbors(int row, int col){
+        if (row == game_board.size() - 1 && col == game_board.size() -1 ) {
+            return false;
+        }
 
     }
 
