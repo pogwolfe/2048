@@ -1,5 +1,7 @@
 package project3;
 
+import java.util.Random;
+
 public class GameController { // has association wth Board, GameStatus, Text2048, GUI2048
 
     private int WinVal;
@@ -22,6 +24,22 @@ public class GameController { // has association wth Board, GameStatus, Text2048
     // need getters and setter for our game status and board var
 
     public void newTile() {
+        Random random = new Random();
+        int r = random.nextInt(game_board.size());
+        int c = random.nextInt(game_board.size());
+        boolean done = false;
+
+    while(!done ) {
+        if (game_board.get(r).get(c) == null) {
+        Tile n = new Tile();
+        game_board.set(r).set(c).n.getTileValue();
+        done = true;
+
+        } else {
+             r = random.nextInt(game_board.size());
+             c = random.nextInt(game_board.size());
+        }
+        }
 
     }
 
@@ -79,4 +97,4 @@ public class GameController { // has association wth Board, GameStatus, Text2048
 
 
 
-}
+
