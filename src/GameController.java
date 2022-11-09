@@ -103,7 +103,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
 
         } else{ // if moving left
             for(int col = 0; col < board.getSize() - 1; col++){ // tracks cols
-                recurseLeft(col, 0); // moves a single row
+                recurseLeft(col, board.getSize() - 1); // moves a single row
             }
         }
     }
