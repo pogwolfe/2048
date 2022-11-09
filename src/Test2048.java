@@ -1,6 +1,3 @@
-package project3;
-
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,7 +9,7 @@ public class Test2048 {
     @Test
     public void testBoard1() {//
     Board n = new Board();
-       LL game_board = new LL<LL>(4);
+       LinkedList game_board = new LinkedList<LinkedList>(4);
     assertEquals(n, game_board);
 //need linked list
 
@@ -20,7 +17,7 @@ public class Test2048 {
     @Test
     public void testBoard2() {
         Board n = new Board(5);
-        LL game_board = new LL<LL>(5);
+        LinkedList game_board = new LinkedList<LinkedList>(5);
         assertEquals(n, game_board);
 //need linked list
 
