@@ -23,7 +23,7 @@ public class Tile {
         return value;
     }
 
-    public void setTileValue(int value){
+    public void setTileValue(Integer value){
         if(power2(value)) {
             this.value = value;
         } else{

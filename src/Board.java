@@ -6,12 +6,15 @@ public class Board {
     /**
      * Holds the status of our game
      */
+    private int size;
     private GameStatus gameStatus;
     public Board(){ // default constructor will create a 4x4 game_board of LinkedLists
+        size = 4;
         game_board = new LinkedList<LinkedList<Tile>>(4); // creates a LinkedList of LinkedLists
     }
 
     public Board(int size){ // legal board sizes are between 4 and 10
+        this.size = size;
         if(size < 4 || size > 10){
             throw new IllegalArgumentException("Board size must be between 4 and 10");
         } else {
@@ -25,6 +28,9 @@ public class Board {
 
     public GameStatus getStatus(){
         return gameStatus;
+    }
+    public int getSize(){
+        return size;
     }
 
     public void newTile(){
@@ -93,71 +99,6 @@ public class Board {
         }
 
     }
-
-    public void moveVertical(int num){
-
-    }
-
-    public void moveHorizontal(int num){ // 1 if moving right, -1 if moving left
-
-           if(num == 1){ // if moving right
-               for(int col = 0; col < game_board.size() - 1; col++){ // tracks cols
-                   recurseRight(col, 0); // moves a single row
-               }
-
-           } else{ // if moving left
-               for(int col = 0; col < game_board.size() - 1; col++){ // tracks cols
-                   recurseLeft(col, 0); // moves a single row
-               }
-           }
-    }
-
-    public void recurseLeft(int col, int row){
-        if (row == 1)
-        { // break case--> if end of row
-        }
-
-        if (game_board.getValue(col,row) == game_board.getValue(col, row - 1))
-        { // can combine --> combine, reset previous, call function again
-            game_board.get(col).set(row - 1, game_board.getValue(col, row) * 2); // set next val = prev * 2
-            game_board.get(col).set(row, null); // reset prev value
-        }
-
-        if (game_board.getValue(col,row - 1) == null)
-        { // can shift over --> shift over, reset previous, call function again
-            game_board.get(col).set(row - 1, game_board.getValue(col, row)); // set next val = prev
-            game_board.get(col).set(row, null); // reset prev value
-        }
-        // can do nothing --> call function again
-        recurseLeft(col, row - 1);
-    }
-    public void recurseRight(int col, int row){
-            if (row == game_board.size() - 2)
-            { // break case--> if end of row
-            }
-
-            if (game_board.getValue(col,row) == game_board.getValue(col, row + 1))
-            { // can combine --> combine, reset previous, call function again
-                game_board.get(col).set(row + 1, game_board.getValue(col, row) * 2); // set next val = prev * 2
-                game_board.get(col).set(row, null); // reset prev value
-            }
-
-            if (game_board.getValue(col,row + 1) == null)
-            { // can shift over --> shift over, reset previous, call function again
-                game_board.get(col).set(row + 1, game_board.getValue(col, row)); // set next val = prev
-                game_board.get(col).set(row, null); // reset prev value
-            }
-            // can do nothing --> call function again
-            recurseRight(col, row + 1);
-        // [4, 2, null, null] case ??
-    }
-    public void recurseUp(int col, int row){
-
-    }
-    public void recurseDown(int col, int row){
-
-    }
-
     public void printBoard(){
 
     }
