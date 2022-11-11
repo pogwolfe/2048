@@ -22,18 +22,19 @@ public class GameController { // has association wth Board, GameStatus, Text2048
     // need getters and setter for our game status and board var
 
     public void newTile() {
+        // generates coords for new Tile
         Random random = new Random();
         int r = random.nextInt(board.getSize());
         int c = random.nextInt(board.getSize());
         boolean done = false;
 
-    while(!done) {
+    while(!done) { // tries to find a valid position to place the new Tile
         if (board.get(r).get(c) == null) {
         Tile n = new Tile();
         board.set(r).set(c).n.getTileValue();
         done = true;
 
-        } else {
+        } else { // randomizes coords again
              r = random.nextInt(board.getSize());
              c = random.nextInt(board.getSize());
         }
@@ -52,7 +53,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
                 if (board.getValue(i, j) == 2048) { //checks for a tile == 2048
-                    game.getStatus() = GameStatus.WON;
+                    board.setGameStatus(GameStatus.WON);
                 }
             }
         }
@@ -60,15 +61,21 @@ public class GameController { // has association wth Board, GameStatus, Text2048
     }
 
     private void checkLoss() { //checks to see if no more moves can be made and thus the game status is updated to lost
+        boolean availableTiles = false;
+        boolean canCombine = false;
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
                 if (board.getValue(i, j) == null) { //checks to see if tile is blank
-                    game.getStatus() = GameStatus.IN_PROGRESS;
-                    return;
+                    availableTiles = true;
+                }
+                if (findSimilarNeighbors(i, j)){ // if tiles can combine
+                    canCombine = true;
                 }
             }
         }
-        game.getStatus() = GameStatus.LOST;
+        if (!availableTiles && !canCombine){ // if no available tiles and cannot combine any
+            board.setGameStatus(GameStatus.LOST);
+        }
     }
 
     private boolean findSimilarNeighbors(int row, int col) {

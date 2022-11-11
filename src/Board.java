@@ -29,6 +29,9 @@ public class Board {
     public GameStatus getStatus(){
         return gameStatus;
     }
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+    }
     public int getSize(){
         return size;
     }
