@@ -97,12 +97,20 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         return findSimilarNeighbors(row + 1, col) || findSimilarNeighbors(row, col+1); //Creates Tree
     }
 
-    public void moveVertical(int num){
+    public void moveVertical(int num){ // 1 if moving down, -1 if moving right
+        if(num == 1){ // if moving down
+            for(int row = 0; row < board.getSize() - 1; row++){ // tracks rows
+                recurseDown(0, row); // moves a single col
+            }
 
+        } else{ // if moving up
+            for(int row = 0; row < board.getSize() - 1; row++){ // tracks rows
+                recurseUp(board.getSize() - 1, row); // moves a single col
+            }
+        }
     }
 
     public void moveHorizontal(int num){ // 1 if moving right, -1 if moving left
-
         if(num == 1){ // if moving right
             for(int col = 0; col < board.getSize() - 1; col++){ // tracks cols
                 recurseRight(col, 0); // moves a single row
@@ -117,7 +125,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
 
     public void recurseLeft(int col, int row){
         if (row == 1) { // break case--> if end of row
-            // exit recursion
+            return; // exit recursion
         }
 
         if (board.getValue(row, col) == board.getValue(row - 1, col)){ // can combine
@@ -133,8 +141,8 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         recurseLeft(col, row - 1);
     }
     public void recurseRight(int col, int row){
-        if (row == 1) { // break case--> if end of row
-            // exit recursion
+        if (row == board.getSize() - 2) { // break case--> if end of row
+            return; // exit recursion
         }
 
         if (board.getValue(row, col) == board.getValue(row + 1, col)){ // can combine
@@ -147,13 +155,43 @@ public class GameController { // has association wth Board, GameStatus, Text2048
             board.getTile(row, col).setTileValue(null); // reset prev value
         }
         // can do nothing --> call function again
-        recurseLeft(col, row + 1);
+        recurseRight(col, row + 1);
         // [4, 2, null, null] case ??
     }
-    public void recurseUp(int col, int row){
+    public void recurseUp(int col, int row){ // starts at bottom
+        if (col == 1) { // break case--> if end of col
+            return; // exit recursion
+        }
 
+        if (board.getValue(row, col) == board.getValue(row, col - 1)){ // can combine
+            board.getTile(row, col - 1).setTileValue(board.getValue(row, col) * 2); // set next val = prev * 2
+            board.getTile(row, col).setTileValue(null); // reset prev value
+        }
+
+        if (board.getValue(row, col - 1) == -1) { // can shift over
+            board.getTile(row, col - 1).setTileValue(board.getValue(row, col)); // set next val = prev
+            board.getTile(row, col).setTileValue(null); // reset prev value
+        }
+        // can do nothing --> call function again
+        recurseUp(col - 1, row);
+        // [4, 2, null, null] case ??
     }
     public void recurseDown(int col, int row){
+        if (col == board.getSize() - 2) { // break case--> if end of col
+            return; // exit recursion
+        }
 
+        if (board.getValue(row, col) == board.getValue(row, col + 1)){ // can combine
+            board.getTile(row, col + 1).setTileValue(board.getValue(row, col) * 2); // set next val = prev * 2
+            board.getTile(row, col).setTileValue(null); // reset prev value
+        }
+
+        if (board.getValue(row, col + 1) == -1) { // can shift over
+            board.getTile(row, col + 1).setTileValue(board.getValue(row, col)); // set next val = prev
+            board.getTile(row, col).setTileValue(null); // reset prev value
+        }
+        // can do nothing --> call function again
+        recurseDown(col + 1, row);
+        // [4, 2, null, null] case ??
     }
 }
