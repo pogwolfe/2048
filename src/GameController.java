@@ -78,7 +78,21 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
     }
 
-    private boolean findSimilarNeighbors(int row, int col) {
+    private boolean findSimilarNeighbors(int row, int col){ // checks the surrounding tiles for same #
+        int val = board.getValue(row, col);
+        if(
+                board.getValue(row - 1, col) == val || // left tile
+                board.getValue(row + 1, col) == val || // right tile
+                board.getValue(row, col + 1) == val || // below tile
+                board.getValue(row, col - 1) == val    // above tile
+        ){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    private boolean findSimilarNeighborsRecursive(int row, int col) {
         if (row == board.getSize() - 1 && col == board.getSize() - 1) { //base case, if we are at the last possible tile
             return false;
         }
@@ -86,15 +100,15 @@ public class GameController { // has association wth Board, GameStatus, Text2048
             if (board.getValue(row, col) == board.getValue(row, col + 1)) {
                 return true;
             }
-            return findSimilarNeighbors(row, col + 1);
+            return findSimilarNeighborsRecursive(row, col + 1);
         }
         if (col == board.getSize() - 1) { //if we are at last col, only need to increment rows
             if (board.getValue(row, col) == board.getValue(row + 1, col)) {
                 return true;
             }
-            return findSimilarNeighbors(row + 1, col);
+            return findSimilarNeighborsRecursive(row + 1, col);
         }
-        return findSimilarNeighbors(row + 1, col) || findSimilarNeighbors(row, col+1); //Creates Tree
+        return findSimilarNeighborsRecursive(row + 1, col) || findSimilarNeighborsRecursive(row, col+1); //Creates Tree
     }
 
     public void moveVertical(int num){ // 1 if moving down, -1 if moving right
