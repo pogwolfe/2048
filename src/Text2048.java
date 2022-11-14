@@ -6,7 +6,7 @@ import java.util.Scanner;
 
         public void run(){
             while(game.getStatus() == GameStatus.IN_PROGRESS){
-                game.getBoard().printBoard();
+                game.printBoard();
                 System.out.println("Move in which direction? (WASD): ");
                 String direction = scanner.nextLine();
                 switch (direction){
@@ -30,7 +30,7 @@ import java.util.Scanner;
                         System.out.println("That is not a valid command.");
                         continue;
                 }
-                if(game.getBoard().hasEmpty()){
+                if(game.hasEmpty()){
                     game.newTile();
                 }
             }

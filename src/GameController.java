@@ -65,7 +65,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         boolean canCombine = false;
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
-                if (board.getValue(i, j) == null) { //checks to see if tile is blank
+                if (board.getValue(i, j) == -1) { //checks to see if tile is blank
                     availableTiles = true;
                 }
                 if (findSimilarNeighbors(i, j)){ // if tiles can combine
@@ -125,7 +125,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
             board.getTile(row, col).setTileValue(null); // reset prev value
         }
 
-        if (board.getValue(row - 1, col) == null) { // can shift over
+        if (board.getValue(row - 1, col) == -1) { // can shift over
             board.getTile(row - 1, col).setTileValue(board.getValue(row, col)); // set next val = prev
             board.getTile(row, col).setTileValue(null); // reset prev value
         }
@@ -142,7 +142,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
             board.getTile(row, col).setTileValue(null); // reset prev value
         }
 
-        if (board.getValue(row + 1, col) == null) { // can shift over
+        if (board.getValue(row + 1, col) == -1) { // can shift over
             board.getTile(row + 1, col).setTileValue(board.getValue(row, col)); // set next val = prev
             board.getTile(row, col).setTileValue(null); // reset prev value
         }
