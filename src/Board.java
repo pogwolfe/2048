@@ -1,7 +1,6 @@
 import java.util.LinkedList;
 
-
-public class Board extends GameController{
+public class Board{
     /**
      * Holds the value of each cube on the game_board
      */
@@ -10,18 +9,9 @@ public class Board extends GameController{
      * Holds the status of our game
      */
     private int size;
-    private GameStatus gameStatus;
-    public Board(){ // default constructor will create a 4x4 game_board of LinkedLists
-        size = 4;
-        game_board = new LinkedList<>(); // creates a LinkedList of LinkedLists
 
-        for(int i = 0; i < size; i++){
-            game_board.add(new LinkedList<>()); // add LinkedList
-            for(int j = 0; j < size; j++){
-                game_board.get(i).add(new Tile()); // add Tiles to LinkedList
-                game_board.get(i).get(j).setTileValue(null); // set Tile value to null
-            }
-        }
+    public Board(){ // default constructor will create a 4x4 game_board of LinkedLists
+        this(4);
     }
 
     public Board(int size){ // legal board sizes are between 4 and 10
@@ -32,35 +22,27 @@ public class Board extends GameController{
             game_board = new LinkedList<>();
 
             for(int i = 0; i < size; i++){
-                game_board.add(new LinkedList<>()); // add LinkedList
+                LinkedList<Tile> temp = new LinkedList<Tile>();
                 for(int j = 0; j < size; j++){
-                    game_board.get(i).add(new Tile()); // add Tiles to LinkedList
-                    game_board.get(i).get(j).setTileValue(null); // set Tile value to null
+                    temp.add(null); // add Tiles to LinkedList
                 }
+                game_board.add(temp); // add LinkedList to game_board
             }
         }
     }
 
-    public LinkedList<LinkedList<Tile>> getBoard(){
-        return game_board;
-    }
-
-    public GameStatus getStatus(){
-        return gameStatus;
-    }
-    public void setGameStatus(GameStatus gameStatus) {
-        this.gameStatus = gameStatus;
-    }
     public int getSize(){
         return size;
     }
 
+    public void newTile(){
 
+    }
     // returns true if our game_board has available cells
     public boolean hasEmpty(){
         for(int i = 0; i < game_board.size(); i++) { // traverses through the game_board columns of LinkedLists
             for(int j = 0; j < game_board.size(); j++) { // traverses through each LinkedList row of Nodes
-                if(game_board.get(i).get(j).getTileValue() != -1){
+                if(game_board.get(i).get(j).getTileValue() == -1){
                     return true; // returns true if there's an empty space
                 }
             }
@@ -86,8 +68,7 @@ public class Board extends GameController{
             throw new IllegalArgumentException("either row or Cols was an invalid input");
         }
         else{
-            game_board.get(col).get(row).setTileValue(t.getTileValue());
-            // sets specified Tile value equal to the value of Tile 't'
+            game_board.get(col).set(row, t);
         }
 
     }
@@ -121,9 +102,9 @@ public class Board extends GameController{
     public void printBoard(){
         String boardText = "";
 
-        for(int i = 0; i < game_board.size() - 1; i++){ // Every row
+        for(int i = 0; i < game_board.size(); i++){ // Every row
             boardText += "\n";
-            for(int j = 0; j < game_board.size() - 1; j++){ // Add each value in row to 'boardText'
+            for(int j = 0; j < game_board.size(); j++){ // Add each value in row to 'boardText'
                 boardText += this.getValue(i, j) + "  ";
             }
 

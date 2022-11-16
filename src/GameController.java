@@ -7,17 +7,20 @@ public class GameController { // has association wth Board, GameStatus, Text2048
 
     private Board board;
     private int WinVal;
+    private GameStatus gameStatus;
 
     public GameController() {
         board  = new Board();
         WinVal = 2048;
         newTile();
+        gameStatus = GameStatus.IN_PROGRESS;
     }
 
     public GameController(int size, int Val) {
         board = new Board(size);
         WinVal = Val;
         newTile();
+        gameStatus = GameStatus.IN_PROGRESS;
     }
 
     // need getters and setter for our game status and board var
@@ -42,6 +45,17 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
     }
 
+    public GameStatus getStatus(){
+        return gameStatus;
+    }
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+    }
+
+    public Board getBoard(){
+        return board;
+    }
+
     public void reset() {
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
@@ -54,7 +68,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
                 if (board.getValue(i, j) == 2048) { //checks for a tile == 2048
-                    board.setGameStatus(GameStatus.WON);
+                    gameStatus = GameStatus.WON;
                 }
             }
         }
@@ -75,7 +89,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
             }
         }
         if (!availableTiles && !canCombine){ // if no available tiles and cannot combine any
-            board.setGameStatus(GameStatus.LOST);
+            gameStatus = GameStatus.LOST;
         }
     }
 
@@ -143,14 +157,14 @@ public class GameController { // has association wth Board, GameStatus, Text2048
             return; // exit recursion
         }
 
-        if (board.getValue(row, col) == board.getValue(row - 1, col)){ // can combine
-            board.getTile(row - 1, col).setTileValue(board.getValue(row, col) * 2); // set next val = prev * 2
-            board.getTile(row, col).setTileValue(null); // reset prev value
+        if (board.getValue(row, col) != -1 && board.getValue(row, col) == board.getValue(row - 1, col)){ // can combine
+            board.setTile(row - 1, col, new Tile(board.getValue(row, col) * 2)); // set next val = prev * 2
+            board.setTile(row, col, null);
         }
 
-        if (board.getValue(row - 1, col) == -1) { // can shift over
-            board.getTile(row - 1, col).setTileValue(board.getValue(row, col)); // set next val = prev
-            board.getTile(row, col).setTileValue(null); // reset prev value
+        if (board.getValue(row, col) != -1 && board.getValue(row - 1, col) == -1) { // can shift over
+            board.setTile(row - 1, col, new Tile(board.getValue(row, col))); // set next val = prev * 2
+            board.setTile(row, col, null);
         }
         // can do nothing --> call function again
         recurseLeft(col, row - 1);
@@ -160,53 +174,50 @@ public class GameController { // has association wth Board, GameStatus, Text2048
             return; // exit recursion
         }
 
-        if (board.getValue(row, col) == board.getValue(row + 1, col)){ // can combine
-            board.getTile(row + 1, col).setTileValue(board.getValue(row, col) * 2); // set next val = prev * 2
-            board.getTile(row, col).setTileValue(null); // reset prev value
+        if (board.getValue(row, col) != -1 && board.getValue(row, col) == board.getValue(row + 1, col)){ // can combine
+            board.setTile(row + 1, col, new Tile(board.getValue(row, col) * 2)); // set next val = prev * 2
+            board.setTile(row, col, null);
         }
 
-        if (board.getValue(row + 1, col) == -1) { // can shift over
-            board.getTile(row + 1, col).setTileValue(board.getValue(row, col)); // set next val = prev
-            board.getTile(row, col).setTileValue(null); // reset prev value
+        if (board.getValue(row, col) != -1 && board.getValue(row + 1, col) == -1) { // can shift over
+            board.setTile(row + 1, col, new Tile(board.getValue(row, col))); // set next val = prev * 2
+            board.setTile(row, col, null);
         }
         // can do nothing --> call function again
         recurseRight(col, row + 1);
-        // [4, 2, null, null] case ??
     }
     public void recurseUp(int col, int row){ // starts at bottom
         if (col == 1) { // break case--> if end of col
             return; // exit recursion
         }
 
-        if (board.getValue(row, col) == board.getValue(row, col - 1)){ // can combine
-            board.getTile(row, col - 1).setTileValue(board.getValue(row, col) * 2); // set next val = prev * 2
-            board.getTile(row, col).setTileValue(null); // reset prev value
+        if (board.getValue(row, col) != -1 && board.getValue(row, col) == board.getValue(row, col - 1)){ // can combine
+            board.setTile(row, col - 1, new Tile(board.getValue(row, col) * 2)); // set next val = prev * 2
+            board.setTile(row, col, null);
         }
 
-        if (board.getValue(row, col - 1) == -1) { // can shift over
-            board.getTile(row, col - 1).setTileValue(board.getValue(row, col)); // set next val = prev
-            board.getTile(row, col).setTileValue(null); // reset prev value
+        if (board.getValue(row, col) != -1 && board.getValue(row, col - 1) == -1) { // can shift over
+            board.setTile(row, col - 1, new Tile(board.getValue(row, col))); // set next val = prev * 2
+            board.setTile(row, col, null);
         }
         // can do nothing --> call function again
         recurseUp(col - 1, row);
-        // [4, 2, null, null] case ??
     }
     public void recurseDown(int col, int row){
         if (col == board.getSize() - 2) { // break case--> if end of col
             return; // exit recursion
         }
 
-        if (board.getValue(row, col) == board.getValue(row, col + 1)){ // can combine
-            board.getTile(row, col + 1).setTileValue(board.getValue(row, col) * 2); // set next val = prev * 2
-            board.getTile(row, col).setTileValue(null); // reset prev value
+        if (board.getValue(row, col) != -1 && board.getValue(row, col) == board.getValue(row, col + 1)){ // can combine
+            board.setTile(row, col + 1, new Tile(board.getValue(row, col) * 2)); // set next val = prev * 2
+            board.setTile(row, col, null);
         }
 
-        if (board.getValue(row, col + 1) == -1) { // can shift over
-            board.getTile(row, col + 1).setTileValue(board.getValue(row, col)); // set next val = prev
-            board.getTile(row, col).setTileValue(null); // reset prev value
+        if (board.getValue(row, col) != -1 && board.getValue(row, col + 1) == -1) { // can shift over
+            board.setTile(row, col + 1, new Tile(board.getValue(row, col))); // set next val = prev * 2
+            board.setTile(row, col, null);
         }
         // can do nothing --> call function again
         recurseDown(col + 1, row);
-        // [4, 2, null, null] case ??
     }
 }
