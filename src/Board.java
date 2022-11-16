@@ -42,7 +42,7 @@ public class Board{
     public boolean hasEmpty(){
         for(int i = 0; i < game_board.size(); i++) { // traverses through the game_board columns of LinkedLists
             for(int j = 0; j < game_board.size(); j++) { // traverses through each LinkedList row of Nodes
-                if(game_board.get(i).get(j).getTileValue() == -1){
+                if(this.getValue(i, j) == -1){
                     return true; // returns true if there's an empty space
                 }
             }
