@@ -29,9 +29,9 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         boolean done = false;
 
     while(!done) { // tries to find a valid position to place the new Tile
-        if (board.get(r).get(c) == null) {
+        if (board.getValue(r, c) == -1) {
         Tile n = new Tile();
-        board.set(r).set(c).n.getTileValue();
+        board.setTile(r, c, n);
         done = true;
 
         } else { // randomizes coords again
