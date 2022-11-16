@@ -42,7 +42,7 @@ public class Board{
     public boolean hasEmpty(){
         for(int i = 0; i < game_board.size(); i++) { // traverses through the game_board columns of LinkedLists
             for(int j = 0; j < game_board.size(); j++) { // traverses through each LinkedList row of Nodes
-                if(game_board.get(i).get(j).getTileValue() != -1){
+                if(game_board.get(i).get(j).getTileValue() == -1){
                     return true; // returns true if there's an empty space
                 }
             }
@@ -102,9 +102,9 @@ public class Board{
     public void printBoard(){
         String boardText = "";
 
-        for(int i = 0; i < game_board.size() - 1; i++){ // Every row
+        for(int i = 0; i < game_board.size(); i++){ // Every row
             boardText += "\n";
-            for(int j = 0; j < game_board.size() - 1; j++){ // Add each value in row to 'boardText'
+            for(int j = 0; j < game_board.size(); j++){ // Add each value in row to 'boardText'
                 boardText += this.getValue(i, j) + "  ";
             }
 
