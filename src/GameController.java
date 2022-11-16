@@ -6,17 +6,20 @@ public class GameController { // has association wth Board, GameStatus, Text2048
 
     private Board board;
     private int WinVal;
+    private GameStatus gameStatus;
 
     public GameController() {
         board  = new Board();
         WinVal = 2048;
         newTile();
+        gameStatus = GameStatus.IN_PROGRESS;
     }
 
     public GameController(int size, int Val) {
         board = new Board(size);
         WinVal = Val;
         newTile();
+        gameStatus = GameStatus.IN_PROGRESS;
     }
 
     // need getters and setter for our game status and board var
@@ -41,6 +44,17 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
     }
 
+    public GameStatus getStatus(){
+        return gameStatus;
+    }
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+    }
+
+    public Board getBoard(){
+        return board;
+    }
+
     public void reset() {
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
@@ -53,7 +67,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
                 if (board.getValue(i, j) == 2048) { //checks for a tile == 2048
-                    board.setGameStatus(GameStatus.WON);
+                    gameStatus = GameStatus.WON;
                 }
             }
         }
@@ -74,7 +88,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
             }
         }
         if (!availableTiles && !canCombine){ // if no available tiles and cannot combine any
-            board.setGameStatus(GameStatus.LOST);
+            gameStatus = GameStatus.LOST;
         }
     }
 

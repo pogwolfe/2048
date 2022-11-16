@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
     public class Text2048 {
-        private Board game = new Board();
+        private GameController game = new GameController();
         private Scanner scanner = new Scanner(System.in);
 
         public void run(){
             while(game.getStatus() == GameStatus.IN_PROGRESS){
-                game.printBoard();
+                game.getBoard().printBoard();
                 System.out.println("Move in which direction? (WASD): ");
                 String direction = scanner.nextLine();
                 switch (direction){
@@ -30,7 +30,7 @@ import java.util.Scanner;
                         System.out.println("That is not a valid command.");
                         continue;
                 }
-                if(game.hasEmpty()){
+                if(game.getBoard().hasEmpty()){
                     game.newTile();
                 }
             }
