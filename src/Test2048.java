@@ -76,16 +76,6 @@ public class Test2048 {
     @Test
     public void testHasEmpty2() {
         Board n = new Board();
-        Tile T = new Tile();
-
-        for (int i = 0; i < 4; i++) {
-            for(int j = 0; j < 4; j++){
-                n.setTile(i,j, T );
-            }
-        }
-
-        n.setTile(2,3, null );
-
 
         assertTrue(n.hasEmpty());
 
@@ -163,6 +153,34 @@ public class Test2048 {
         Tile t = new Tile(64);
         String T = "64";
         assertEquals(t.toString(), T);
+    }
+
+    @Test
+    public void testGetBoard(){
+        Board n = new Board();
+        LinkedList<LinkedList<Tile>> game_board = n.getBoard();
+        assertEquals(game_board, n.getBoard());
+    }
+
+    @Test
+    public void testGetstatus(){
+    Board n = new Board();
+    n.setGameStatus(GameStatus.IN_PROGRESS);
+    assertEquals(GameStatus.IN_PROGRESS, n.getStatus());
+    }
+    @Test
+    public void testgetsize(){
+
+        Board n = new Board();
+        assertEquals(4,n.getSize());
+
+    }
+    @Test
+    public void testgetvalue(){
+        Board n = new Board();
+
+
+
     }
 }
 
