@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class Board extends GameController{
     /**
      * Holds the value of each cube on the game_board
@@ -10,7 +12,15 @@ public class Board extends GameController{
     private GameStatus gameStatus;
     public Board(){ // default constructor will create a 4x4 game_board of LinkedLists
         size = 4;
-        game_board = new LinkedList<LinkedList<Tile>>(4); // creates a LinkedList of LinkedLists
+        game_board = new LinkedList<LinkedList<Tile>>(); // creates a LinkedList of LinkedLists
+
+        for(int i = 0; i < size; i++){
+            game_board.add(new LinkedList<Tile>()); // add LinkedList
+            for(int j = 0; j < size; j++){
+                game_board.get(i).add(new Tile()); // add Tiles to LinkedList
+                game_board.get(i).get(j).setTileValue(null); // set Tile value to null
+            }
+        }
     }
 
     public Board(int size){ // legal board sizes are between 4 and 10
@@ -18,7 +28,15 @@ public class Board extends GameController{
         if(size < 4 || size > 10){
             throw new IllegalArgumentException("Board size must be between 4 and 10");
         } else {
-            game_board = new LinkedList<LinkedList<Tile>>(size);
+            game_board = new LinkedList<LinkedList<Tile>>();
+
+            for(int i = 0; i < size; i++){
+                game_board.add(new LinkedList<Tile>()); // add LinkedList
+                for(int j = 0; j < size; j++){
+                    game_board.get(i).add(new Tile()); // add Tiles to LinkedList
+                    game_board.get(i).get(j).setTileValue(null); // set Tile value to null
+                }
+            }
         }
     }
 
@@ -69,9 +87,8 @@ public class Board extends GameController{
             throw new IllegalArgumentException("either row or Cols was an invalid input");
         }
         else{
-          t = game_board.get(col).get(row); // this would be setting the inputted value 't'-
-            // -equal to game_board value rather than vice versa?
-
+            game_board.get(col).get(row).setTileValue(t.getTileValue());
+            // sets specified Tile value equal to the value of Tile 't'
         }
 
     }
