@@ -50,6 +50,7 @@ public class Tile {
     }
 
     public String toString(){
+
         return "" + value;
     }
 }

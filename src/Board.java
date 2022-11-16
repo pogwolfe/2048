@@ -55,9 +55,7 @@ public class Board extends GameController{
         return size;
     }
 
-    public void newTile(){
 
-    }
     // returns true if our game_board has available cells
     public boolean hasEmpty(){
         for(int i = 0; i < game_board.size(); i++) { // traverses through the game_board columns of LinkedLists
