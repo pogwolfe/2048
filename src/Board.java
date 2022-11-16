@@ -12,10 +12,10 @@ public class Board extends GameController{
     private GameStatus gameStatus;
     public Board(){ // default constructor will create a 4x4 game_board of LinkedLists
         size = 4;
-        game_board = new LinkedList<LinkedList<Tile>>(); // creates a LinkedList of LinkedLists
+        game_board = new LinkedList<>(); // creates a LinkedList of LinkedLists
 
         for(int i = 0; i < size; i++){
-            game_board.add(new LinkedList<Tile>()); // add LinkedList
+            game_board.add(new LinkedList<>()); // add LinkedList
             for(int j = 0; j < size; j++){
                 game_board.get(i).add(new Tile()); // add Tiles to LinkedList
                 game_board.get(i).get(j).setTileValue(null); // set Tile value to null
@@ -28,10 +28,10 @@ public class Board extends GameController{
         if(size < 4 || size > 10){
             throw new IllegalArgumentException("Board size must be between 4 and 10");
         } else {
-            game_board = new LinkedList<LinkedList<Tile>>();
+            game_board = new LinkedList<>();
 
             for(int i = 0; i < size; i++){
-                game_board.add(new LinkedList<Tile>()); // add LinkedList
+                game_board.add(new LinkedList<>()); // add LinkedList
                 for(int j = 0; j < size; j++){
                     game_board.get(i).add(new Tile()); // add Tiles to LinkedList
                     game_board.get(i).get(j).setTileValue(null); // set Tile value to null
