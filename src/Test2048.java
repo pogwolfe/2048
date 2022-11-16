@@ -13,8 +13,8 @@ public class Test2048 {
     @Test
     public void testBoard1() {//
     Board n = new Board();
-       LinkedList game_board = new LinkedList<>();
-    assertEquals(n, game_board);
+
+    assertEquals(4, n.getSize());
 
 //need linked list
 
@@ -22,12 +22,10 @@ public class Test2048 {
     @Test
     public void testBoard2() {
         Board n = new Board(5);
-        LinkedList game_board = new LinkedList<>();
-        assertEquals(n, game_board);
+        assertEquals(5,n.getSize());
 //need linked list
 
     }
-
 
     @Test(expected = IllegalArgumentException.class)
     public void testBoard3() {
@@ -155,19 +153,10 @@ public class Test2048 {
         assertEquals(t.toString(), T);
     }
 
-    @Test
-    public void testGetBoard(){
-        Board n = new Board();
-        LinkedList<LinkedList<Tile>> game_board = n.getBoard();
-        assertEquals(game_board, n.getBoard());
-    }
 
-    @Test
-    public void testGetstatus(){
-    Board n = new Board();
-    n.setGameStatus(GameStatus.IN_PROGRESS);
-    assertEquals(GameStatus.IN_PROGRESS, n.getStatus());
-    }
+
+
+
     @Test
     public void testgetsize(){
 
