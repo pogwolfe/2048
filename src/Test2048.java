@@ -60,6 +60,7 @@ public class Test2048 {
     public void testHasEmpty1() {
         Board n = new Board();
         Tile T = new Tile();
+        boolean result;
 
         for (int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++){
@@ -67,7 +68,9 @@ public class Test2048 {
             }
         }
 
-      assertTrue(n.hasEmpty());
+        result = n.hasEmpty();
+
+        assertEquals(false,result);
 
     }
 
@@ -104,8 +107,9 @@ public class Test2048 {
 
     @Test(expected = IllegalArgumentException.class)
     public void testsetTile2() {
-        Tile T = new Tile();
-        T.setTileValue(3);
+        Board n = new Board();
+        Tile t = new Tile();
+        n.setTile(11,2,t);
 
     }
 
@@ -119,6 +123,21 @@ public class Test2048 {
     public void testgetValue1v2() {
         Tile t = new Tile(128);
         assertEquals(t.getTileValue(),128);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testgetTileBoard() {
+        Board n = new Board();
+        n.getTile(11,3);
+    }
+    @Test
+    public void testgetTileBoard2() {
+        Board n = new Board();
+        Tile t = new Tile(2);
+        n.setTile(1,2,t);
+
+        assertEquals(t,n.getTile(1,2));
+
     }
     @Test
     public void testPower2v1() {
@@ -164,12 +183,17 @@ public class Test2048 {
         assertEquals(4,n.getSize());
 
     }
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testgetvalue(){
         Board n = new Board();
+        n.getValue(11,2);
 
+    }
 
-
+    @Test
+    public void testPrintBoard(){
+        Board n = new Board();
+        n.printBoard();
     }
 }
 

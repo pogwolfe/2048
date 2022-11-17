@@ -20,6 +20,7 @@ public class Tile {
     }
 
     public int getTileValue(){
+
         return value;
     }
 

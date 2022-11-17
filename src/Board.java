@@ -35,9 +35,7 @@ public class Board{
         return size;
     }
 
-    public void newTile(){
 
-    }
     // returns true if our game_board has available cells
     public boolean hasEmpty(){
         for(int i = 0; i < game_board.size(); i++) { // traverses through the game_board columns of LinkedLists
@@ -51,7 +49,7 @@ public class Board{
     }
 
     public Tile getTile(int row, int col){
-        if (!check(row,col)){ // if our LinkedList doesn't pass the check()
+        if (check(row,col)){ // if our LinkedList doesn't pass the check()
 
             throw new IllegalArgumentException("either row or Cols was an invalid input");
         }
@@ -63,7 +61,7 @@ public class Board{
     }
 
     public void setTile(int row, int col, Tile t){
-        if (!check(row,col)){
+        if (check(row,col)){
 
             throw new IllegalArgumentException("either row or Cols was an invalid input");
         }
@@ -74,7 +72,7 @@ public class Board{
     }
 
     public int getValue(int row, int col){
-        if (!check(row,col)){
+        if (check(row,col)){
 
             throw new IllegalArgumentException("either row or Cols was an invalid input");
         }
@@ -91,7 +89,7 @@ public class Board{
     }
 
     private boolean check(int row, int col){ // returns true if values are within parameters
-        if ((row < 4 || row > 10) && (col < 4 || col > 10)){
+        if ((row < 0 || row > this.size) || (col < 0 || col > this.size)){
             return true;
         }
         else{
