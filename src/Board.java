@@ -88,7 +88,7 @@ public class Board{
 
     }
 
-    private boolean check(int row, int col){ // returns true if values are within parameters
+    private boolean check(int row, int col){ // returns true if values are out of the parameters
         if ((row < 0 || row > this.size) || (col < 0 || col > this.size)){
             return true;
         }
