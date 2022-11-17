@@ -126,7 +126,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         return findSimilarNeighborsRecursive(row + 1, col) || findSimilarNeighborsRecursive(row, col+1); //Creates Tree
     }
 
-    public void moveVertical(int num){ // 1 if moving down, -1 if moving right
+    public void moveVertical(int num){ // 1 if moving down, -1 if moving up
         if(num == 1){ // if moving down
             for(int row = 0; row < board.getSize() - 1; row++){ // tracks rows
                 recurseDown(0, row); // moves a single col
@@ -163,7 +163,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
 
         if (board.getValue(row, col) != -1 && board.getValue(row - 1, col) == -1) { // can shift over
-            board.setTile(row - 1, col, new Tile(board.getValue(row, col))); // set next val = prev * 2
+            board.setTile(row - 1, col, new Tile(board.getValue(row, col))); // set next val = prev
             board.setTile(row, col, null);
         }
         // can do nothing --> call function again
@@ -180,7 +180,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
 
         if (board.getValue(row, col) != -1 && board.getValue(row + 1, col) == -1) { // can shift over
-            board.setTile(row + 1, col, new Tile(board.getValue(row, col))); // set next val = prev * 2
+            board.setTile(row + 1, col, new Tile(board.getValue(row, col))); // set next val = prev
             board.setTile(row, col, null);
         }
         // can do nothing --> call function again
@@ -197,7 +197,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
 
         if (board.getValue(row, col) != -1 && board.getValue(row, col - 1) == -1) { // can shift over
-            board.setTile(row, col - 1, new Tile(board.getValue(row, col))); // set next val = prev * 2
+            board.setTile(row, col - 1, new Tile(board.getValue(row, col))); // set next val = prev
             board.setTile(row, col, null);
         }
         // can do nothing --> call function again
@@ -214,7 +214,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
 
         if (board.getValue(row, col) != -1 && board.getValue(row, col + 1) == -1) { // can shift over
-            board.setTile(row, col + 1, new Tile(board.getValue(row, col))); // set next val = prev * 2
+            board.setTile(row, col + 1, new Tile(board.getValue(row, col))); // set next val = prev
             board.setTile(row, col, null);
         }
         // can do nothing --> call function again
