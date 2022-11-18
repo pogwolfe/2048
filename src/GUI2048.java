@@ -6,10 +6,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 
-public class GUI2048 extends JPanel implements ActionListener, KeyListener{ // has JFrame and GUI2048Panel which extends JPanel
+public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GUI2048Panel which extends JPanel
 
     private GameController game;
     private boolean keyPressed; // for use in keyPressed & keyReleased
+    private ButtonListener buttonListener;
     private JFrame gui;
     /**
      * JPanel that contains the JLabels that represent the 2048 board
@@ -41,6 +42,10 @@ public class GUI2048 extends JPanel implements ActionListener, KeyListener{ // h
         int winVal = getWinVal(); // collects winning #
         game = new GameController(size, winVal); // creates 2048 game
         initialize();
+    }
+
+    public GameController get_game(){
+        return this.game;
     }
 
     public int getSizeInput(){
@@ -101,30 +106,83 @@ public class GUI2048 extends JPanel implements ActionListener, KeyListener{ // h
 
     public void initialize(){ // setup GUI stuff
         keyPressed = false;
+        buttonListener = new ButtonListener();
         gui = new JFrame();
+        gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         game_panel = new JPanel();
         info_panel = new JPanel();
         gamesPlayed = new JLabel("1");
         gamesWon = new JLabel("0");
+        UP = new JButton("UP");
+        DOWN = new JButton("DOWN");
+        LEFT = new JButton("LEFT");
+        RIGHT = new JButton("RIGHT");
 
-        for(int i = 0; i < game.getBoard().getSize(); i++){
-            for(int j = 0; j < game.getBoard().getSize(); j++){
-                JButtonsBoard[i][j] = new JButton(); // implement border design from TicTacToe?
+        // create fileMenu elements
+        fileMenu = new JMenu("File:");
+        quitItem = new JMenuItem("Quit!");
+        resetItem = new JMenuItem("Reset");
+
+        // add elements to fileMenu
+        fileMenu.add(quitItem);
+        fileMenu.add(resetItem);
+
+        // adds individual ButtonListeners to each menu item
+        quitItem.addActionListener(buttonListener::actionPerformed_quit);
+        resetItem.addActionListener(buttonListener::actionPerformed_reset);
+
+        // adds individual actionListeners to the movement buttons displayed in buttonPanel
+        UP.addActionListener(buttonListener::actionPerformed_UP);
+        DOWN.addActionListener(buttonListener::actionPerformed_DOWN);
+        LEFT.addActionListener(buttonListener::actionPerformed_LEFT);
+        RIGHT.addActionListener(buttonListener::actionPerformed_RIGHT);
+
+        // creates menu to hold fileMenu
+        JMenuBar menus = new JMenuBar();
+        menus.add(fileMenu);
+
+        // creates game_panel to hold the 2048 buttons
+        game_panel = new JPanel();
+        game_panel.setLayout(new GridLayout(game.getBoard().getSize(), game.getBoard().getSize()));
+        game_panel.setPreferredSize(new Dimension(500, 500));
+
+        // creates the info_panel to hold our movement buttons and display games played/won
+        info_panel = new JPanel();
+        info_panel.setLayout(new GridLayout(6, 1)); // reformat movement buttons?
+        info_panel.add(gamesPlayed);
+        info_panel.add(gamesWon);
+        info_panel.add(UP);
+        info_panel.add(DOWN);
+        info_panel.add(LEFT);
+        info_panel.add(RIGHT);
+
+        // creates the JButtonsBoard
+        JButtonsBoard = new JButton[game.getBoard().getSize()][game.getBoard().getSize()];
+
+        int count = 0;
+
+        // creates buttons and sets borders
+        for (int i = 0; i < JButtonsBoard.length; i++) {
+            for (int j = 0; j < JButtonsBoard[0].length; j++) {
+                JButtonsBoard[i][j] = new JButton("");
+                JButtonsBoard[i][j].addActionListener(buttonListener);
+                JButtonsBoard[i][j].setName(String.valueOf(count));
+                game_panel.add(JButtonsBoard[i][j]);
+                JButtonsBoard[i][j].setBorder(BorderFactory.createMatteBorder(7, 7, 7, 7, Color.getHSBColor(44, 67, 100)));
+                JButtonsBoard[i][j].setBackground(Color.darkGray);
+                count++;
             }
         }
 
-        /**TODO: add location-specific borders to buttons, set layout, add items to gui
-         *
-         */
-
+        // TODO: format the info_panel elements
+        gui.add(info_panel);
+        gui.add(game_panel);
+        gui.setSize(610, 560);
+        gui.setJMenuBar(menus);
+        gui.setVisible(true);
     }
 
     public void update(){
-
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) { // for side buttons
 
     }
 
@@ -141,6 +199,43 @@ public class GUI2048 extends JPanel implements ActionListener, KeyListener{ // h
     @Override
     public void keyReleased(KeyEvent e) {
 
+    }
+
+    private class ButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+
+        public void actionPerformed_quit(ActionEvent e){
+            System.exit(0);
+        }
+
+        public void actionPerformed_reset(ActionEvent e){
+            gui.dispose(); // closes last game
+            game = new GUI2048().get_game(); // creates new game
+        }
+
+        public void actionPerformed_UP(ActionEvent e) {
+            game.moveVertical(-1);
+            update();
+        }
+
+        public void actionPerformed_DOWN(ActionEvent e) {
+            game.moveVertical(1);
+            update();
+        }
+
+        public void actionPerformed_LEFT(ActionEvent e) {
+            game.moveHorizontal(-1);
+            update();
+        }
+
+        public void actionPerformed_RIGHT(ActionEvent e) {
+            game.moveHorizontal(1);
+            update();
+        }
     }
 
 
