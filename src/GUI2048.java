@@ -42,6 +42,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         int winVal = getWinVal(); // collects winning #
         game = new GameController(size, winVal); // creates 2048 game
         initialize();
+        update();
     }
 
     public GameController get_game(){
@@ -94,16 +95,6 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         JOptionPane.showMessageDialog(null, "Better luck next time!");
     }
 
-    /**
-    private Color getColor(String value){
-        switch(value){
-            case(){
-
-            }
-        }
-    }
-    **/
-
     public void initialize(){ // setup GUI stuff
         keyPressed = false;
         buttonListener = new ButtonListener();
@@ -144,7 +135,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         // creates game_panel to hold the 2048 buttons
         game_panel = new JPanel();
         game_panel.setLayout(new GridLayout(game.getBoard().getSize(), game.getBoard().getSize()));
-        game_panel.setPreferredSize(new Dimension(500, 500));
+        game_panel.setSize(new Dimension(500, 500));
 
         // creates the info_panel to hold our movement buttons and display games played/won
         info_panel = new JPanel();
@@ -175,8 +166,8 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         }
 
         // TODO: format the info_panel elements
-        gui.add(info_panel);
-        gui.add(game_panel);
+        gui.getContentPane().add(info_panel);
+        gui.getContentPane().add(game_panel);
         gui.setSize(610, 560);
         gui.setJMenuBar(menus);
         gui.setVisible(true);
@@ -184,7 +175,32 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
 
     public void update(){
 
+        // update button colors
+        for(int i = 0; i < game.getBoard().getSize(); i++){
+            for(int j = 0; j < game.getBoard().getSize(); j++){
+                if(game.getBoard().getValue(i, j) != -1) { // if Tile is not blank
+                    JButtonsBoard[i][j].setText("" + game.getBoard().getValue(i, j));
+                    JButtonsBoard[i][j].setBackground(getColor(JButtonsBoard[i][j].getText()));
+                }
+            }
+        }
+
     }
+
+     private Color getColor(String value) {
+         return switch (value) {
+             case "2" -> Color.PINK;
+             case "4" -> Color.MAGENTA;
+             case "8" -> Color.BLUE;
+             case "16" -> Color.CYAN;
+             case "32" -> Color.GREEN;
+             case "64" -> Color.ORANGE;
+             case "128" -> Color.RED;
+             case "256" -> Color.black;
+             // and so on
+             default -> Color.GRAY;
+         };
+     }
 
     @Override
     public void keyTyped(KeyEvent e) {  // for movement keys
