@@ -185,6 +185,9 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
             }
         }
 
+        // check for wins and losses
+        game.checkWin();
+        game.checkLoss();
     }
 
      private Color getColor(String value) {
@@ -196,9 +199,12 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
              case "32" -> Color.GREEN;
              case "64" -> Color.ORANGE;
              case "128" -> Color.RED;
-             case "256" -> Color.black;
+             case "256" -> Color.GRAY;
+             case "512" -> Color.LIGHT_GRAY;
+             case "1024" -> Color.getHSBColor(44, 67, 100); // I have zero clue what color this is
+             case "2048" -> Color.getHSBColor(99, 20, 100); // just making them up at this point
              // and so on
-             default -> Color.GRAY;
+             default -> Color.BLACK; // for numbers beyond 2048
          };
      }
 
@@ -210,10 +216,28 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
     @Override
     public void keyPressed(KeyEvent e) {
 
+        if(!keyPressed){ // ensures that key is not currently being held down
+            if(e.getKeyCode() == 87) { // W key
+                game.moveVertical(-1); // move up
+            }
+            if(e.getKeyCode() == 65) { // A key
+                game.moveHorizontal(-1); // move left
+            }
+            if(e.getKeyCode() == 83) { // S key
+                game.moveVertical(1); // move down
+            }
+            if(e.getKeyCode() == 68) { // D key
+                game.moveVertical(1); // move right
+            }
+        }
+        keyPressed = true;
+        update();
+
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        keyPressed = false; // resets keyPressed
 
     }
 
