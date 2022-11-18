@@ -1,11 +1,15 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 
-public class GUI2048 extends JPanel { // has JFrame and GUI2048Panel which extends JPanel
+public class GUI2048 extends JPanel implements ActionListener, KeyListener{ // has JFrame and GUI2048Panel which extends JPanel
 
     private GameController game;
+    private boolean keyPressed; // for use in keyPressed & keyReleased
     private JFrame gui;
     /**
      * JPanel that contains the JLabels that represent the 2048 board
@@ -15,7 +19,7 @@ public class GUI2048 extends JPanel { // has JFrame and GUI2048Panel which exten
      * JPanel that contains the # of games played, # of games won, and JButtons UP, DOWN, LEFT, RIGHT
      */
     private JPanel info_panel;
-    private JLabel[][] jLabelsBoard;
+    private JButton[][] JButtonsBoard;
     private JLabel gamesPlayed;
     private JLabel gamesWon;
     /**
@@ -25,7 +29,6 @@ public class GUI2048 extends JPanel { // has JFrame and GUI2048Panel which exten
     private JButton DOWN;
     private JButton LEFT;
     private JButton RIGHT;
-    private ButtonListener buttonListener;
     /**
      * File menu in top left to quit or reset the board
      */
@@ -37,7 +40,7 @@ public class GUI2048 extends JPanel { // has JFrame and GUI2048Panel which exten
         int size = getSizeInput(); // collects size of board
         int winVal = getWinVal(); // collects winning #
         game = new GameController(size, winVal); // creates 2048 game
-        declareVars();
+        initialize();
     }
 
     public int getSizeInput(){
@@ -86,17 +89,60 @@ public class GUI2048 extends JPanel { // has JFrame and GUI2048Panel which exten
         JOptionPane.showMessageDialog(null, "Better luck next time!");
     }
 
-    public void declareVars(){
+    /**
+    private Color getColor(String value){
+        switch(value){
+            case(){
 
-    }
-
-    private class ButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
+            }
         }
     }
+    **/
+
+    public void initialize(){ // setup GUI stuff
+        keyPressed = false;
+        gui = new JFrame();
+        game_panel = new JPanel();
+        info_panel = new JPanel();
+        gamesPlayed = new JLabel("1");
+        gamesWon = new JLabel("0");
+
+        for(int i = 0; i < game.getBoard().getSize(); i++){
+            for(int j = 0; j < game.getBoard().getSize(); j++){
+                JButtonsBoard[i][j] = new JButton(); // implement border design from TicTacToe?
+            }
+        }
+
+        /**TODO: add location-specific borders to buttons, set layout, add items to gui
+         *
+         */
+
+    }
+
+    public void update(){
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) { // for side buttons
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {  // for movement keys
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
 
     public static void main(String[] args){
         GUI2048 main_game = new GUI2048();
