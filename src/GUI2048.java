@@ -39,6 +39,10 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
 
     public GUI2048(){
         int size = getSizeInput(); // collects size of board
+        if (size < 4 || size > 10) {
+            JOptionPane.showMessageDialog(null, "Invalid board size enetered, please try again");
+            size = getSizeInput();
+        }
         int winVal = getWinVal(); // collects winning #
         game = new GameController(size, winVal); // creates 2048 game
         initialize();
@@ -159,8 +163,8 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
                 JButtonsBoard[i][j].addActionListener(buttonListener);
                 JButtonsBoard[i][j].setName(String.valueOf(count));
                 game_panel.add(JButtonsBoard[i][j]);
-                JButtonsBoard[i][j].setBorder(BorderFactory.createMatteBorder(7, 7, 7, 7, Color.getHSBColor(44, 67, 100)));
-                JButtonsBoard[i][j].setBackground(Color.darkGray);
+                JButtonsBoard[i][j].setBorder(BorderFactory.createMatteBorder(7, 7, 7, 7, new Color(187,173,160)));
+                JButtonsBoard[i][j].setBackground(new Color(205,193,180));
                 count++;
             }
         }
@@ -193,17 +197,17 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
 
      private Color getColor(String value) {
          return switch (value) {
-             case "2" -> Color.PINK;
-             case "4" -> Color.MAGENTA;
-             case "8" -> Color.BLUE;
-             case "16" -> Color.CYAN;
-             case "32" -> Color.GREEN;
-             case "64" -> Color.ORANGE;
-             case "128" -> Color.RED;
-             case "256" -> Color.GRAY;
-             case "512" -> Color.LIGHT_GRAY;
-             case "1024" -> Color.getHSBColor(44, 67, 100); // I have zero clue what color this is
-             case "2048" -> Color.getHSBColor(99, 20, 100); // just making them up at this point
+             case "2" -> new Color(238,228,218);
+             case "4" -> new Color(238,225,201);
+             case "8" -> new Color(243,178,122);
+             case "16" -> new Color(246,150,100);
+             case "32" -> new Color(247,125,95);
+             case "64" -> new Color(246,94,59);
+             case "128" -> new Color(237,208,115);
+             case "256" -> new Color(237,204,97);
+             case "512" -> new Color(237,200,80);
+             case "1024" -> new Color(237,197,63); // I have zero clue what color this is
+             case "2048" -> new Color(237,194,46); // just making them up at this point
              // and so on
              default -> Color.BLACK; // for numbers beyond 2048
          };
