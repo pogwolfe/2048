@@ -9,7 +9,7 @@ import java.awt.event.KeyListener;
 public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GUI2048Panel which extends JPanel
 
     private GameController game;
-    private boolean keyPressed; // for use in keyPressed & keyReleased
+    private boolean keyDown; // for use in keyPressed & keyReleased
     private ButtonListener buttonListener;
     private JFrame gui;
     /**
@@ -96,7 +96,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
     }
 
     public void initialize(){ // setup GUI stuff
-        keyPressed = false;
+        keyDown = false;
         buttonListener = new ButtonListener();
         gui = new JFrame();
         gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -166,6 +166,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         }
 
         // TODO: format the info_panel elements
+        addKeyListener(this);
         gui.getContentPane().add(info_panel);
         gui.getContentPane().add(game_panel);
         gui.setSize(610, 560);
@@ -216,7 +217,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
     @Override
     public void keyPressed(KeyEvent e) {
 
-        if(!keyPressed){ // ensures that key is not currently being held down
+        if(!keyDown){ // ensures that key is not currently being held down
             if(e.getKeyCode() == 87) { // W key
                 game.moveVertical(-1); // move up
             }
@@ -230,14 +231,14 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
                 game.moveVertical(1); // move right
             }
         }
-        keyPressed = true;
+        keyDown = true;
         update();
 
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        keyPressed = false; // resets keyPressed
+        keyDown = false; // resets keyPressed
 
     }
 

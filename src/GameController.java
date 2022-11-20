@@ -94,16 +94,39 @@ public class GameController { // has association wth Board, GameStatus, Text2048
 
     public boolean findSimilarNeighbors(int row, int col){ // checks the surrounding tiles for same #
         int val = board.getValue(row, col);
-        if(
-                board.getValue(row - 1, col) == val || // left tile
-                board.getValue(row + 1, col) == val || // right tile
-                board.getValue(row, col + 1) == val || // below tile
-                board.getValue(row, col - 1) == val    // above tile
-        ){
-            return true;
-        } else{
-            return false;
+
+        // create special checks for edge cases
+        boolean leftCheck = true;
+        boolean rightCheck = true;
+        boolean aboveCheck = true;
+        boolean belowCheck = true;
+
+        if(row == 0) leftCheck = false;
+        if(row == board.getSize() - 1) rightCheck = false;
+        if(col == 0) aboveCheck = false;
+        if(col == board.getSize() - 1) belowCheck = false;
+
+        if(leftCheck){ // left tile
+            if(board.getValue(row - 1, col) == val){
+                return true;
+            }
         }
+        if(rightCheck){ // right tile
+            if(board.getValue(row + 1, col) == val){
+                return true;
+            }
+        }
+        if(belowCheck){ // below tile
+            if(board.getValue(row, col + 1) == val){
+                return true;
+            }
+        }
+        if(aboveCheck){ // above tile
+            if(board.getValue(row, col - 1) == val){
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean findSimilarNeighborsRecursive(int row, int col) {
