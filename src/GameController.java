@@ -64,10 +64,10 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
     }
 
-    private void checkWin() { //loops through board to check if a tile is 2048 and updates game status to WON if so
+    public void checkWin() { //loops through board to check if a tile is WinVal and updates game status to WON if so
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
-                if (board.getValue(i, j) == 2048) { //checks for a tile == 2048
+                if (board.getValue(i, j) == WinVal) { //checks for a tile == WinVal
                     gameStatus = GameStatus.WON;
                 }
             }
@@ -75,7 +75,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
 
     }
 
-    private void checkLoss() { //checks to see if no more moves can be made and thus the game status is updated to lost
+    public void checkLoss() { //checks to see if no more moves can be made and thus the game status is updated to lost
         boolean availableTiles = false;
         boolean canCombine = false;
         for (int i = 0; i < board.getSize(); i++) {
@@ -93,21 +93,44 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
     }
 
-    private boolean findSimilarNeighbors(int row, int col){ // checks the surrounding tiles for same #
+    public boolean findSimilarNeighbors(int row, int col){ // checks the surrounding tiles for same #
         int val = board.getValue(row, col);
-        if(
-                board.getValue(row - 1, col) == val || // left tile
-                board.getValue(row + 1, col) == val || // right tile
-                board.getValue(row, col + 1) == val || // below tile
-                board.getValue(row, col - 1) == val    // above tile
-        ){
-            return true;
-        } else{
-            return false;
+
+        // create special checks for edge cases
+        boolean leftCheck = true;
+        boolean rightCheck = true;
+        boolean aboveCheck = true;
+        boolean belowCheck = true;
+
+        if(row == 0) leftCheck = false;
+        if(row == board.getSize() - 1) rightCheck = false;
+        if(col == 0) aboveCheck = false;
+        if(col == board.getSize() - 1) belowCheck = false;
+
+        if(leftCheck){ // left tile
+            if(board.getValue(row - 1, col) == val){
+                return true;
+            }
         }
+        if(rightCheck){ // right tile
+            if(board.getValue(row + 1, col) == val){
+                return true;
+            }
+        }
+        if(belowCheck){ // below tile
+            if(board.getValue(row, col + 1) == val){
+                return true;
+            }
+        }
+        if(aboveCheck){ // above tile
+            if(board.getValue(row, col - 1) == val){
+                return true;
+            }
+        }
+        return false;
     }
 
-    private boolean findSimilarNeighborsRecursive(int row, int col) {
+    public boolean findSimilarNeighborsRecursive(int row, int col) {
         if (row == board.getSize() - 1 && col == board.getSize() - 1) { //base case, if we are at the last possible tile
             return false;
         }

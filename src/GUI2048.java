@@ -1,11 +1,16 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 
-public class GUI2048 extends JPanel { // has JFrame and GUI2048Panel which extends JPanel
+public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GUI2048Panel which extends JPanel
 
     private GameController game;
+    private boolean keyDown; // for use in keyPressed & keyReleased
+    private ButtonListener buttonListener;
     private JFrame gui;
     /**
      * JPanel that contains the JLabels that represent the 2048 board
@@ -15,7 +20,7 @@ public class GUI2048 extends JPanel { // has JFrame and GUI2048Panel which exten
      * JPanel that contains the # of games played, # of games won, and JButtons UP, DOWN, LEFT, RIGHT
      */
     private JPanel info_panel;
-    private JLabel[][] jLabelsBoard;
+    private JButton[][] JButtonsBoard;
     private JLabel gamesPlayed;
     private JLabel gamesWon;
     /**
@@ -25,7 +30,6 @@ public class GUI2048 extends JPanel { // has JFrame and GUI2048Panel which exten
     private JButton DOWN;
     private JButton LEFT;
     private JButton RIGHT;
-    private ButtonListener buttonListener;
     /**
      * File menu in top left to quit or reset the board
      */
@@ -35,9 +39,18 @@ public class GUI2048 extends JPanel { // has JFrame and GUI2048Panel which exten
 
     public GUI2048(){
         int size = getSizeInput(); // collects size of board
+        if (size < 4 || size > 10) {
+            JOptionPane.showMessageDialog(null, "Invalid board size enetered, please try again");
+            size = getSizeInput();
+        }
         int winVal = getWinVal(); // collects winning #
         game = new GameController(size, winVal); // creates 2048 game
-        declareVars();
+        initialize();
+        update();
+    }
+
+    public GameController get_game(){
+        return this.game;
     }
 
     public int getSizeInput(){
@@ -86,7 +99,150 @@ public class GUI2048 extends JPanel { // has JFrame and GUI2048Panel which exten
         JOptionPane.showMessageDialog(null, "Better luck next time!");
     }
 
-    public void declareVars(){
+    public void initialize(){ // setup GUI stuff
+        keyDown = false;
+        buttonListener = new ButtonListener();
+        gui = new JFrame();
+        gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        game_panel = new JPanel();
+        info_panel = new JPanel();
+        gamesPlayed = new JLabel("1");
+        gamesWon = new JLabel("0");
+        UP = new JButton("UP");
+        DOWN = new JButton("DOWN");
+        LEFT = new JButton("LEFT");
+        RIGHT = new JButton("RIGHT");
+
+        // create fileMenu elements
+        fileMenu = new JMenu("File:");
+        quitItem = new JMenuItem("Quit!");
+        resetItem = new JMenuItem("Reset");
+
+        // add elements to fileMenu
+        fileMenu.add(quitItem);
+        fileMenu.add(resetItem);
+
+        // adds individual ButtonListeners to each menu item
+        quitItem.addActionListener(buttonListener::actionPerformed_quit);
+        resetItem.addActionListener(buttonListener::actionPerformed_reset);
+
+        // adds individual actionListeners to the movement buttons displayed in buttonPanel
+        UP.addActionListener(buttonListener::actionPerformed_UP);
+        DOWN.addActionListener(buttonListener::actionPerformed_DOWN);
+        LEFT.addActionListener(buttonListener::actionPerformed_LEFT);
+        RIGHT.addActionListener(buttonListener::actionPerformed_RIGHT);
+
+        // creates menu to hold fileMenu
+        JMenuBar menus = new JMenuBar();
+        menus.add(fileMenu);
+
+        // creates game_panel to hold the 2048 buttons
+        game_panel = new JPanel();
+        game_panel.setLayout(new GridLayout(game.getBoard().getSize(), game.getBoard().getSize()));
+        game_panel.setSize(new Dimension(500, 500));
+
+        // creates the info_panel to hold our movement buttons and display games played/won
+        info_panel = new JPanel();
+        info_panel.setLayout(new GridLayout(6, 1)); // reformat movement buttons?
+        info_panel.add(gamesPlayed);
+        info_panel.add(gamesWon);
+        info_panel.add(UP);
+        info_panel.add(DOWN);
+        info_panel.add(LEFT);
+        info_panel.add(RIGHT);
+
+        // creates the JButtonsBoard
+        JButtonsBoard = new JButton[game.getBoard().getSize()][game.getBoard().getSize()];
+
+        int count = 0;
+
+        // creates buttons and sets borders
+        for (int i = 0; i < JButtonsBoard.length; i++) {
+            for (int j = 0; j < JButtonsBoard[0].length; j++) {
+                JButtonsBoard[i][j] = new JButton("");
+                JButtonsBoard[i][j].addActionListener(buttonListener);
+                JButtonsBoard[i][j].setName(String.valueOf(count));
+                game_panel.add(JButtonsBoard[i][j]);
+                JButtonsBoard[i][j].setBorder(BorderFactory.createMatteBorder(7, 7, 7, 7, new Color(187,173,160)));
+                JButtonsBoard[i][j].setBackground(new Color(205,193,180));
+                count++;
+            }
+        }
+
+        // TODO: format the info_panel elements
+        addKeyListener(this);
+        gui.getContentPane().add(info_panel);
+        gui.getContentPane().add(game_panel);
+        gui.setSize(610, 560);
+        gui.setJMenuBar(menus);
+        gui.setVisible(true);
+    }
+
+    public void update(){
+
+        // update button colors
+        for(int i = 0; i < game.getBoard().getSize(); i++){
+            for(int j = 0; j < game.getBoard().getSize(); j++){
+                if(game.getBoard().getValue(i, j) != -1) { // if Tile is not blank
+                    JButtonsBoard[i][j].setText("" + game.getBoard().getValue(i, j));
+                    JButtonsBoard[i][j].setBackground(getColor(JButtonsBoard[i][j].getText()));
+                }
+            }
+        }
+
+        // check for wins and losses
+        game.checkWin();
+        game.checkLoss();
+    }
+
+     private Color getColor(String value) {
+         return switch (value) {
+             case "2" -> new Color(238,228,218);
+             case "4" -> new Color(238,225,201);
+             case "8" -> new Color(243,178,122);
+             case "16" -> new Color(246,150,100);
+             case "32" -> new Color(247,125,95);
+             case "64" -> new Color(246,94,59);
+             case "128" -> new Color(237,208,115);
+             case "256" -> new Color(237,204,97);
+             case "512" -> new Color(237,200,80);
+             case "1024" -> new Color(237,197,63); // I have zero clue what color this is
+             case "2048" -> new Color(237,194,46); // just making them up at this point
+             // and so on
+             default -> Color.BLACK; // for numbers beyond 2048
+         };
+     }
+
+    @Override
+    public void keyTyped(KeyEvent e) {  // for movement keys
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+        if(!keyDown){ // ensures that key is not currently being held down
+            if(e.getKeyCode() == 87) { // W key
+                game.moveVertical(-1); // move up
+            }
+            if(e.getKeyCode() == 65) { // A key
+                game.moveHorizontal(-1); // move left
+            }
+            if(e.getKeyCode() == 83) { // S key
+                game.moveVertical(1); // move down
+            }
+            if(e.getKeyCode() == 68) { // D key
+                game.moveVertical(1); // move right
+            }
+        }
+        keyDown = true;
+        update();
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        keyDown = false; // resets keyPressed
 
     }
 
@@ -96,7 +252,37 @@ public class GUI2048 extends JPanel { // has JFrame and GUI2048Panel which exten
         public void actionPerformed(ActionEvent e) {
 
         }
+
+        public void actionPerformed_quit(ActionEvent e){
+            System.exit(0);
+        }
+
+        public void actionPerformed_reset(ActionEvent e){
+            gui.dispose(); // closes last game
+            game = new GUI2048().get_game(); // creates new game
+        }
+
+        public void actionPerformed_UP(ActionEvent e) {
+            game.moveVertical(-1);
+            update();
+        }
+
+        public void actionPerformed_DOWN(ActionEvent e) {
+            game.moveVertical(1);
+            update();
+        }
+
+        public void actionPerformed_LEFT(ActionEvent e) {
+            game.moveHorizontal(-1);
+            update();
+        }
+
+        public void actionPerformed_RIGHT(ActionEvent e) {
+            game.moveHorizontal(1);
+            update();
+        }
     }
+
 
     public static void main(String[] args){
         GUI2048 main_game = new GUI2048();

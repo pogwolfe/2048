@@ -1,5 +1,3 @@
-import java.util.LinkedList;
-
 public class Board{
     /**
      * Holds the value of each cube on the game_board
