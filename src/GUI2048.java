@@ -122,12 +122,6 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         quitItem.addActionListener(buttonListener::actionPerformed_quit);
         resetItem.addActionListener(buttonListener::actionPerformed_reset);
 
-        // adds individual actionListeners to the movement buttons displayed in buttonPanel
-        UP.addActionListener(buttonListener::actionPerformed_UP);
-        DOWN.addActionListener(buttonListener::actionPerformed_DOWN);
-        LEFT.addActionListener(buttonListener::actionPerformed_LEFT);
-        RIGHT.addActionListener(buttonListener::actionPerformed_RIGHT);
-
         // creates menu to hold fileMenu
         JMenuBar menus = new JMenuBar();
         menus.add(fileMenu);
@@ -270,29 +264,6 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
             game = new GUI2048().get_game(); // creates new game
         }
 
-        public void actionPerformed_UP(ActionEvent e) {
-            game.moveVertical(-1);
-            game.newTile();
-            update();
-        }
-
-        public void actionPerformed_DOWN(ActionEvent e) {
-            game.moveVertical(1);
-            game.newTile();
-            update();
-        }
-
-        public void actionPerformed_LEFT(ActionEvent e) {
-            game.moveHorizontal(-1);
-            game.newTile();
-            update();
-        }
-
-        public void actionPerformed_RIGHT(ActionEvent e) {
-            game.moveHorizontal(1);
-            game.newTile();
-            update();
-        }
     }
 
 
