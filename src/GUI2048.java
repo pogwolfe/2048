@@ -179,6 +179,13 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         // check for wins and losses
         game.checkWin();
         game.checkLoss();
+
+        if(game.getStatus() != GameStatus.IN_PROGRESS){ // if game is over
+            showStatus(game.getStatus());
+            game.reset();
+            initialize();
+            update();
+        }
     }
 
      private Color getColor(String value) {

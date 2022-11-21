@@ -163,12 +163,12 @@ public class GameController { // has association wth Board, GameStatus, Text2048
 
     public void moveHorizontal(int num){ // 1 if moving right, -1 if moving left //TODO: Needs to be fixed
         if(num == 1){ // if moving right
-            for(int row = 0; row < board.getSize() - 1; row++){ // tracks rows, starts at top left, ends at bottom right
+            for(int row = 0; row < board.getSize(); row++){ // tracks rows, starts at top left, ends at bottom right
                 recurseRight(0, row); // moves right across a single row
             }
 
         } else{ // if moving left
-            for(int row = board.getSize() - 1; row > 0; row--){ // tracks rows, starts at top right, ends at bottom left
+            for(int row = 0; row < board.getSize(); row++){ // tracks rows, starts at top right, ends at bottom left
                 recurseLeft(board.getSize() - 1, row); // moves left across a single row
             }
         }
