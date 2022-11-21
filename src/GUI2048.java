@@ -225,19 +225,25 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         if(!keyDown){ // ensures that key is not currently being held down
             if(e.getKeyCode() == 87) { // W key
                 game.moveVertical(-1); // move up
+                game.newTile();
+                update();
             }
             if(e.getKeyCode() == 65) { // A key
                 game.moveHorizontal(-1); // move left
+                game.newTile();
+                update();
             }
             if(e.getKeyCode() == 83) { // S key
                 game.moveVertical(1); // move down
+                game.newTile();
+                update();
             }
             if(e.getKeyCode() == 68) { // D key
                 game.moveVertical(1); // move right
+                game.newTile();
+                update();
             }
             keyDown = true;
-            game.newTile();
-            update();
         }
 
     }
