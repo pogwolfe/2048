@@ -65,7 +65,6 @@ public class Board{
         }
         else{
             return game_board.get(col).get(row);
-
         }
 
     }
