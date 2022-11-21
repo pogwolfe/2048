@@ -185,6 +185,13 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
                     JButtonsBoard[i][j].setText("");
                 } else{
                     JButtonsBoard[i][j].setText("" + game.getBoard().getValue(i, j));
+                    JButtonsBoard[i][j].setFont(new Font("Text", Font.BOLD, 50));
+                    if (game.getBoard().getValue(i,j) < 7) {
+                        JButtonsBoard[i][j].setForeground(new Color(119, 110, 101));
+                    }
+                    else {
+                        JButtonsBoard[i][j].setForeground(new Color(249,246,242));
+                    }
                 }
                 JButtonsBoard[i][j].setBackground(getColor(JButtonsBoard[i][j].getText()));
             }
