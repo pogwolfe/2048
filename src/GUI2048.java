@@ -39,10 +39,6 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
 
     public GUI2048(){
         int size = getSizeInput(); // collects size of board
-        if (size < 4 || size > 10) {
-            JOptionPane.showMessageDialog(null, "Invalid board size enetered, please try again");
-            size = getSizeInput();
-        }
         int winVal = getWinVal(); // collects winning #
         game = new GameController(size, winVal); // creates 2048 game
         initialize();
@@ -165,12 +161,14 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
                 game_panel.add(JButtonsBoard[i][j]);
                 JButtonsBoard[i][j].setBorder(BorderFactory.createMatteBorder(7, 7, 7, 7, new Color(187,173,160)));
                 JButtonsBoard[i][j].setBackground(new Color(205,193,180));
+                JButtonsBoard[i][j].addKeyListener(this);
                 count++;
             }
         }
 
         // TODO: format the info_panel elements
-        addKeyListener(this);
+        gui.getRootPane().setDefaultButton(JButtonsBoard[0][0]);
+        game_panel.requestFocus();
         gui.getContentPane().add(info_panel);
         gui.getContentPane().add(game_panel);
         gui.setSize(610, 560);
@@ -183,10 +181,12 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         // update button colors
         for(int i = 0; i < game.getBoard().getSize(); i++){
             for(int j = 0; j < game.getBoard().getSize(); j++){
-                if(game.getBoard().getValue(i, j) != -1) { // if Tile is not blank
+                if(game.getBoard().getValue(i, j) == -1) { // if Tile is not blank, change displayed value
+                    JButtonsBoard[i][j].setText("");
+                } else{
                     JButtonsBoard[i][j].setText("" + game.getBoard().getValue(i, j));
-                    JButtonsBoard[i][j].setBackground(getColor(JButtonsBoard[i][j].getText()));
                 }
+                JButtonsBoard[i][j].setBackground(getColor(JButtonsBoard[i][j].getText()));
             }
         }
 
@@ -197,6 +197,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
 
      private Color getColor(String value) {
          return switch (value) {
+             case "" -> new Color(205,193,180);
              case "2" -> new Color(238,228,218);
              case "4" -> new Color(238,225,201);
              case "8" -> new Color(243,178,122);
@@ -206,9 +207,8 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
              case "128" -> new Color(237,208,115);
              case "256" -> new Color(237,204,97);
              case "512" -> new Color(237,200,80);
-             case "1024" -> new Color(237,197,63); // I have zero clue what color this is
-             case "2048" -> new Color(237,194,46); // just making them up at this point
-             // and so on
+             case "1024" -> new Color(237,197,63);
+             case "2048" -> new Color(237,194,46);
              default -> Color.BLACK; // for numbers beyond 2048
          };
      }
@@ -234,9 +234,10 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
             if(e.getKeyCode() == 68) { // D key
                 game.moveVertical(1); // move right
             }
+            keyDown = true;
+            game.newTile();
+            update();
         }
-        keyDown = true;
-        update();
 
     }
 
@@ -264,21 +265,25 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
 
         public void actionPerformed_UP(ActionEvent e) {
             game.moveVertical(-1);
+            game.newTile();
             update();
         }
 
         public void actionPerformed_DOWN(ActionEvent e) {
             game.moveVertical(1);
+            game.newTile();
             update();
         }
 
         public void actionPerformed_LEFT(ActionEvent e) {
             game.moveHorizontal(-1);
+            game.newTile();
             update();
         }
 
         public void actionPerformed_RIGHT(ActionEvent e) {
             game.moveHorizontal(1);
+            game.newTile();
             update();
         }
     }
