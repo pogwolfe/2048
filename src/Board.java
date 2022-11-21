@@ -12,6 +12,9 @@ public class Board{
         this(4);
     }
 
+    /**
+     * @param size the size of the board
+     */
     public Board(int size){ // legal board sizes are between 4 and 10
         this.size = size;
         if(size < 4 || size > 10){
@@ -29,12 +32,17 @@ public class Board{
         }
     }
 
+    /**
+     * @return the size of the board
+     */
+
     public int getSize(){
         return size;
     }
 
-
-    // returns true if our game_board has available cells
+    /**
+     * @return true if our game_board has available cells, false if otherwise
+     */
     public boolean hasEmpty(){
         for(int i = 0; i < game_board.size(); i++) { // traverses through the game_board columns of LinkedLists
             for(int j = 0; j < game_board.size(); j++) { // traverses through each LinkedList row of Nodes
@@ -46,6 +54,10 @@ public class Board{
         return false;
     }
 
+    /**
+     * @param row col , numbers specifying where on the board we want the tile
+     * @return the tile at the row and col specification
+     */
     public Tile getTile(int row, int col){
         if (check(row,col)){ // if our LinkedList doesn't pass the check()
 
@@ -58,6 +70,10 @@ public class Board{
 
     }
 
+    /**
+     * @param row col ,numbers specifying where on the board we want to set the tile
+     * @param t the tile being set
+     */
     public void setTile(int row, int col, Tile t){
         if (check(row,col)){
 
@@ -69,6 +85,10 @@ public class Board{
 
     }
 
+    /**
+     * @param row col , numbers specifying where on the board we want to get the value
+     * @return the value at the row and col specification
+     */
     public int getValue(int row, int col){
         if (check(row,col)){
 
@@ -86,6 +106,10 @@ public class Board{
 
     }
 
+    /**
+     * @param row col , values that are being checked to see if they are within the board size
+     * @return true if they are NOT within the board size, false if they are
+     */
     private boolean check(int row, int col){ // returns true if values are out of the parameters
         if ((row < 0 || row > this.size) || (col < 0 || col > this.size)){
             return true;
@@ -95,6 +119,7 @@ public class Board{
         }
 
     }
+
     public void printBoard(){
         String boardText = "";
 
