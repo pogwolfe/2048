@@ -24,13 +24,6 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
     private JLabel gamesPlayed;
     private JLabel gamesWon;
     /**
-     * JButtons that allow movement
-     */
-    private JButton UP;
-    private JButton DOWN;
-    private JButton LEFT;
-    private JButton RIGHT;
-    /**
      * File menu in top left to quit or reset the board
      */
     private JMenu fileMenu;
@@ -104,10 +97,6 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         info_panel = new JPanel();
         gamesPlayed = new JLabel("1");
         gamesWon = new JLabel("0");
-        UP = new JButton("UP");
-        DOWN = new JButton("DOWN");
-        LEFT = new JButton("LEFT");
-        RIGHT = new JButton("RIGHT");
 
         // create fileMenu elements
         fileMenu = new JMenu("File:");
@@ -136,10 +125,6 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         info_panel.setLayout(new GridLayout(6, 1)); // reformat movement buttons?
         info_panel.add(gamesPlayed);
         info_panel.add(gamesWon);
-        info_panel.add(UP);
-        info_panel.add(DOWN);
-        info_panel.add(LEFT);
-        info_panel.add(RIGHT);
 
         // creates the JButtonsBoard
         JButtonsBoard = new JButton[game.getBoard().getSize()][game.getBoard().getSize()];
@@ -194,6 +179,13 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         // check for wins and losses
         game.checkWin();
         game.checkLoss();
+
+        if(game.getStatus() != GameStatus.IN_PROGRESS){ // if game is over
+            showStatus(game.getStatus());
+            game.reset();
+            initialize();
+            update();
+        }
     }
 
      private Color getColor(String value) {
