@@ -150,13 +150,13 @@ public class GameController { // has association wth Board, GameStatus, Text2048
 
     public void moveVertical(int num){ // 1 if moving down, -1 if moving up
         if(num == 1){ // if moving down
-            for(int row = 0; row < board.getSize() - 1; row++){ // tracks rows
-                recurseDown(0, row); // moves a single col
+            for (int col = 0; col < board.getSize(); col++) { //checks every col
+                recurseDown(col, 0); // moves a single col, starting at top and going down
             }
 
         } else{ // if moving up
-            for(int row = 0; row < board.getSize() - 1; row++){ // tracks rows
-                recurseUp(board.getSize() - 1, row); // moves a single col
+            for (int col = 0; col < board.getSize(); col++) { //checks every col
+                recurseUp(col, board.getSize() - 1); // moves a single col,starting at bottom and going up
             }
         }
     }
@@ -209,37 +209,37 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         recurseRight(col, row + 1);
     }
     public void recurseUp(int col, int row){ // starts at bottom
-        if (col == 1) { // break case--> if end of col
+        if (row == 0) { // break case--> if end of row
             return; // exit recursion
         }
 
-        if (board.getValue(row, col) != -1 && board.getValue(row, col) == board.getValue(row, col - 1)){ // can combine
-            board.setTile(row, col - 1, new Tile(board.getValue(row, col) * 2)); // set next val = prev * 2
-            board.setTile(row, col, null);
+        if (board.getValue(row, col) != -1 && board.getValue(row, col) == board.getValue(row - 1, col)){ // can combine since tile and next tile above are the same
+            board.setTile(row - 1, col, new Tile(board.getValue(row, col) * 2)); // set next val = prev * 2
+            board.setTile(row, col, null); //sets prev tile to null
         }
 
-        if (board.getValue(row, col) != -1 && board.getValue(row, col - 1) == -1) { // can shift over
-            board.setTile(row, col - 1, new Tile(board.getValue(row, col))); // set next val = prev
-            board.setTile(row, col, null);
+        if (board.getValue(row, col) != -1 && board.getValue(row - 1, col) == -1) { // can shift up due to blank tile above
+            board.setTile(row - 1, col, new Tile(board.getValue(row, col))); // set next val = prev
+            board.setTile(row, col, null); //sets prev tile to null
         }
         // can do nothing --> call function again
-        recurseUp(col - 1, row);
+        recurseUp(col, row - 1); //decrement row to move up in same col
     }
     public void recurseDown(int col, int row){
-        if (col == board.getSize() - 2) { // break case--> if end of col
+        if (row == board.getSize() - 1) { // break case--> if end of row
             return; // exit recursion
         }
 
-        if (board.getValue(row, col) != -1 && board.getValue(row, col) == board.getValue(row, col + 1)){ // can combine
-            board.setTile(row, col + 1, new Tile(board.getValue(row, col) * 2)); // set next val = prev * 2
-            board.setTile(row, col, null);
+        if (board.getValue(row, col) != -1 && board.getValue(row, col) == board.getValue(row + 1, col)){ // can combine since curr tile and next tile down are equal
+            board.setTile(row + 1, col, new Tile(board.getValue(row, col) * 2)); // set next val = prev * 2
+            board.setTile(row, col, null);//sets prev tile to null
         }
 
-        if (board.getValue(row, col) != -1 && board.getValue(row, col + 1) == -1) { // can shift over
-            board.setTile(row, col + 1, new Tile(board.getValue(row, col))); // set next val = prev
-            board.setTile(row, col, null);
+        if (board.getValue(row, col) != -1 && board.getValue(row + 1, col) == -1) { // can shift down due to blank tile
+            board.setTile(row + 1, col, new Tile(board.getValue(row, col))); // set next val = prev
+            board.setTile(row, col, null);//sets prev tile to null
         }
         // can do nothing --> call function again
-        recurseDown(col + 1, row);
+        recurseDown(col, row + 1); //moves down a row
     }
 }

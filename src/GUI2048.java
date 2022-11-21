@@ -73,7 +73,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
 
         // Attempt to get win value from user
         try {
-            while (input_winValue <= 3 /**||!power2(input_winValue)**/) { // HOW TO USE POWER2?
+            while (input_winValue <= 3 /*|| power2(input_winValue)*/) { // HOW TO USE POWER2?
                 String s = JOptionPane.showInputDialog(null,
                         "Enter desired win value for 2048:");
                 if (s == null) {
