@@ -16,6 +16,10 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         gameStatus = GameStatus.IN_PROGRESS;
     }
 
+    /**
+     * @param size the size of the board
+     * @param Val  the value needed to win the game
+     */
     public GameController(int size, int Val) {
         board = new Board(size);
         WinVal = Val;
@@ -23,8 +27,9 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         gameStatus = GameStatus.IN_PROGRESS;
     }
 
-    // need getters and setter for our game status and board var
-
+    /**
+     * will place a new tile in a random empty spot on the board
+     */
     public void newTile() {
         // generates coords for new Tile
         Random random = new Random();
@@ -45,17 +50,30 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
     }
 
+    /**
+     * @return the status of the game
+     */
     public GameStatus getStatus(){
         return gameStatus;
     }
+
+    /**
+     * @param gameStatus set the status of the game
+     */
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
+    /**
+     * @return the board
+     */
     public Board getBoard(){
         return board;
     }
 
+    /**
+     * resets the game by setting all the cells on the board as null
+     */
     public void reset() {
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
@@ -64,6 +82,9 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
     }
 
+    /**
+     * will set the GameStatus.WON if any of the tiles reached the winning value
+     */
     public void checkWin() { //loops through board to check if a tile is WinVal and updates game status to WON if so
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
@@ -75,6 +96,10 @@ public class GameController { // has association wth Board, GameStatus, Text2048
 
     }
 
+    /**
+     * will set game status to GameStatus.LOST if all the cells on
+     * the board are full and there are no similar neighbors to continue the game
+     */
     public void checkLoss() { //checks to see if no more moves can be made and thus the game status is updated to lost
         boolean availableTiles = false;
         boolean canCombine = false;
@@ -92,6 +117,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
             gameStatus = GameStatus.LOST;
         }
     }
+
 
     public boolean findSimilarNeighbors(int row, int col){ // checks the surrounding tiles for same #
         int val = board.getValue(row, col);
