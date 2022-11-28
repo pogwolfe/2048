@@ -196,7 +196,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
 
         } else{ // if moving left
             for(int row = 0; row < board.getSize(); row++){ // tracks rows, starts at top right, ends at bottom left
-                recurseLeft(board.getSize() - 1, row); // moves left across a single row
+                recurseLeft(board.getSize()-1, row); // moves left across a single row
             }
         }
     }
