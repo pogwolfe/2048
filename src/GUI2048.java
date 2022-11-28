@@ -231,7 +231,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
                 update();
             }
             if(e.getKeyCode() == 68) { // D key
-                game.moveVertical(1); // move right
+                game.moveHorizontal(1); // move right
                 game.newTile();
                 update();
             }
