@@ -83,9 +83,9 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
     private void showStatus(GameStatus status) {
         if (status == GameStatus.WON) {
             JOptionPane.showMessageDialog(null, "Nice Job!");
+        } else if (status == GameStatus.LOST) { // if status == GameStatus.LOST
+            JOptionPane.showMessageDialog(null, "Better luck next time!");
         }
-            // if status == GameStatus.LOST
-        JOptionPane.showMessageDialog(null, "Better luck next time!");
     }
 
     public void initialize(){ // setup GUI stuff
@@ -178,14 +178,22 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
 
         // check for wins and losses
         game.checkWin();
-        game.checkLoss();
+        if (!checkfinish()){
+            game.checkLoss();
+            checkfinish();
+        }
 
+    }
+    private boolean checkfinish(){
+        boolean hasfinished = false;
         if(game.getStatus() != GameStatus.IN_PROGRESS){ // if game is over
             showStatus(game.getStatus());
             game.reset();
             initialize();
             update();
+            hasfinished = true;
         }
+        return hasfinished;
     }
 
      private Color getColor(String value) {
