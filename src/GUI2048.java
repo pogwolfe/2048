@@ -191,6 +191,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
             game.reset();
             initialize();
             update();
+            
             hasfinished = true;
         }
         return hasfinished;
@@ -260,6 +261,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         public void actionPerformed(ActionEvent e) {
 
         }
+        
 
         public void actionPerformed_quit(ActionEvent e){
             System.exit(0);

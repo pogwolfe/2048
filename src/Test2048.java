@@ -1,4 +1,4 @@
-import org.junit.Before;
+/*import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -195,5 +195,5 @@ public class Test2048 {
         Board n = new Board();
         n.printBoard();
     }
-}
+}*/
 
