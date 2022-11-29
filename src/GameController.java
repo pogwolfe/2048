@@ -108,7 +108,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
                 if (board.getValue(i, j) == -1) { //checks to see if tile is blank
                     availableTiles = true;
                 }
-                if (findSimilarNeighbors(i, j)){ // if tiles can combine
+                if (findSimilarNeighborsRecursive(i, j)){ // if tiles can combine
                     canCombine = true;
                 }
             }
@@ -119,7 +119,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
     }
 
 
-    public boolean findSimilarNeighbors(int row, int col){ // checks the surrounding tiles for same #
+   /* public boolean findSimilarNeighbors(int row, int col){ // checks the surrounding tiles for same #
         int val = board.getValue(row, col);
 
         // create special checks for edge cases
@@ -154,7 +154,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
             }
         }
         return false;
-    }
+   } */
 
     public boolean findSimilarNeighborsRecursive(int row, int col) {
         if (row == board.getSize() - 1 && col == board.getSize() - 1) { //base case, if we are at the last possible tile
