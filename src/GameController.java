@@ -35,13 +35,13 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         Random random = new Random();
         int r = random.nextInt(board.getSize());
         int c = random.nextInt(board.getSize());
-        boolean done = false;
 
-    while(!done) { // tries to find a valid position to place the new Tile
+
+    for(int i = 0; i < board.getSize(); i++)  { // tries to find a valid position to place the new Tile
         if (board.getValue(r, c) == -1) {
         Tile n = new Tile();
         board.setTile(r, c, n);
-        done = true;
+        break;
 
         } else { // randomizes coords again
              r = random.nextInt(board.getSize());
