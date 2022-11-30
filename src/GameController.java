@@ -129,7 +129,6 @@ public class GameController { // has association wth Board, GameStatus, Text2048
             gameStatus = GameStatus.LOST;
         }
     }
-
     public boolean findSimilarNeighborsRecursive(int row, int col) {
         //NEW ATTEMPT
         if (row == board.getSize() - 1 && col == board.getSize() - 1) { //base case, if we are at the last possible tile
