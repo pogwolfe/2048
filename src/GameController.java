@@ -90,7 +90,6 @@ public class GameController { // has association wth Board, GameStatus, Text2048
             }
         }
         gameStatus = GameStatus.IN_PROGRESS;
-
     }
 
     /**
