@@ -155,98 +155,134 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         return findSimilarNeighborsRecursive(row + 1, col); //return with row + 1
     }
 
-    public void moveVertical(int num){ // 1 if moving down, -1 if moving up //TODO: Needs to be fixed
+    public void moveVertical(int num){ // 1 if moving down, -1 if moving up
         if(num == 1){ // if moving down
-            for (int col = 0; col < board.getSize(); col++) { //checks every col
-                recurseDown(col, 0); // moves a single col, starting at top and going down
+            for (int col = 0; col < board.getSize(); col++) {
+                recurseDown(col, board.getSize() - 2);
             }
 
         } else{ // if moving up
-            for (int col = 0; col < board.getSize(); col++) { //checks every col
-                recurseUp(col, board.getSize() - 1); // moves a single col,starting at bottom and going up
+            for (int col = 0; col < board.getSize(); col++) {
+                recurseUp(col, 1);
             }
         }
     }
 
-    public void moveHorizontal(int num){ // 1 if moving right, -1 if moving left //TODO: Needs to be fixed
+    public void moveHorizontal(int num){ // 1 if moving right, -1 if moving left
         if(num == 1){ // if moving right
-            for(int row = 0; row < board.getSize(); row++){ // tracks rows, starts at top left, ends at bottom right
-                recurseRight(0, row); // moves right across a single row
+            for(int row = 0; row < board.getSize(); row++){ // tracks rows, starts at top right, ends at bottom left
+                recurseRight(board.getSize() - 2, row);
             }
 
         } else{ // if moving left
-            for(int row = 0; row < board.getSize(); row++){ // tracks rows, starts at top right, ends at bottom left
-                recurseLeft(board.getSize()-1, row); // moves left across a single row
+            for(int row = 0; row < board.getSize(); row++){ // tracks rows, starts at top left, ends at bottom right
+                recurseLeft(1, row);
             }
         }
     }
 
-    public void recurseLeft(int col, int row){ //TODO: Needs to be fixed
-        if (col == 0) { // break case--> if first col in row
-            return; // exit recursion
-        }
+    public void recurseLeft(int col, int row){
+        // pass in 1 for col to start from 1 before left side
+        if ((board.getValue(row, col) == -1 && col == board.getSize() - 1) || (col == board.getSize() - 1 && board.getValue(row, col - 1) != board.getValue(row, col) && board.getValue(row, col - 1) != -1)){
+            // Base: Tile is empty && last Tile || Tile cannot shift && cannot combine && last Tile
+            return;
+        } else if (board.getValue(row, col) == -1) {
+            // Case 1: Tile is empty --> move onto next Tile
+            recurseLeft(col + 1, row);
 
-        if (board.getValue(row, col) != -1 && board.getValue(row, col) == board.getValue(row, col - 1)){ // can combine
-            board.setTile(row, col - 1, new Tile(board.getValue(row, col) * 2)); // set next val = prev * 2
-            board.setTile(row, col, null); //sets prev tile to null
-        }
+        } else if (board.getValue(row, col - 1) == -1){
+            // Case 2: Tile can shift & not empty--> shift, restart
+            board.setTile(row, col - 1, new Tile(board.getValue(row, col))); // swap
+            board.setTile(row, col, null); // reset
+            recurseLeft(1, row); // start over
 
-        if (board.getValue(row, col) != -1 && board.getValue(row, col -1 ) == -1) { // can shift over due to blank tile
-            board.setTile(row, col - 1, new Tile(board.getValue(row, col))); // set next val = prev
-            board.setTile(row, col, null); //set prev tile to null
+        } else if(board.getValue(row, col - 1) == board.getValue(row, col)){
+            // Case 3: Tile can combine  & cannot shift & not empty--> combine, restart
+            board.setTile(row, col - 1, new Tile(board.getValue(row, col) * 2)); // double
+            board.setTile(row, col, null); // reset
+            recurseLeft(1, row); // start over
+
+        } else {
+            // Case 4: Tile cannot shift nor combine
+            recurseLeft(col + 1, row);
         }
-        // can do nothing --> call function again
-        recurseLeft(col -1, row);
     }
-    public void recurseRight(int col, int row){ //TODO: Needs to be fixed
-        if (col == board.getSize() - 1) { // break case--> if last col in row
-            return; // exit recursion
-        }
+    public void recurseRight(int col, int row){
+        // pass in board size - 2 for col to start from 1 before right side
+        if ((board.getValue(row, col) == -1 && col == 0) || (col == 0 && board.getValue(row, col + 1) != board.getValue(row, col) && board.getValue(row, col + 1) != -1)){
+            // Base: Tile is empty && last Tile || Tile cannot shift && cannot combine && last Tile
+            return;
+        } else if (board.getValue(row, col) == -1) {
+            // Case 1: Tile is empty --> move onto next Tile
+            recurseRight(col - 1, row);
 
-        if (board.getValue(row, col) != -1 && board.getValue(row, col) == board.getValue(row, col + 1)){ // can combine
-            board.setTile(row, col + 1, new Tile(board.getValue(row, col) * 2)); // set next val = prev * 2
-            board.setTile(row, col, null); //sets prev tile to null
-        }
+        } else if (board.getValue(row, col + 1) == -1){
+            // Case 2: Tile can shift --> shift, restart
+            board.setTile(row, col + 1, new Tile(board.getValue(row, col))); // swap
+            board.setTile(row, col, null); // reset
+            recurseRight(board.getSize() - 2, row); // start over
 
-        if (board.getValue(row, col) != -1 && board.getValue(row, col + 1) == -1) { // can shift over due to blank tile
-            board.setTile(row, col + 1, new Tile(board.getValue(row, col))); // set next val = prev
-            board.setTile(row, col, null);//set prev tile to null
+        } else if(board.getValue(row, col + 1) == board.getValue(row, col)){
+            // Case 3: Tile can combine --> combine, restart
+            board.setTile(row, col + 1, new Tile(board.getValue(row, col) * 2)); // double
+            board.setTile(row, col, null); // reset
+            recurseRight(board.getSize() - 2, row); // start over
+
+        } else {
+            // Case 4: Tile cannot shift nor combine
+            recurseRight(col - 1, row);
         }
-        // can do nothing --> call function again
-        recurseRight(col + 1, row);
     }
-    public void recurseUp(int col, int row){ // starts at bottom //TODO: Needs to be fixed
-        if (row == 0) { // break case--> if end of row
-            return; // exit recursion
-        }
+    public void recurseUp(int col, int row){
+        // pass in board size - 2 for row to start from 1 before bottom side
+        if ((board.getValue(row, col) == -1 && row == board.getSize() - 1) || (row == board.getSize() - 1 && board.getValue(row - 1, col) != board.getValue(row, col) && board.getValue(row - 1, col) != -1)){
+            // Base: Tile is empty && last Tile || Last Tile && cannot shift && cannot combine
+            return;
+        } else if (board.getValue(row, col) == -1) {
+            // Case 1: Tile is empty --> move onto next Tile
+            recurseUp(col, row + 1);
 
-        if (board.getValue(row, col) != -1 && board.getValue(row, col) == board.getValue(row - 1, col)){ // can combine since tile and next tile above are the same
-            board.setTile(row - 1, col, new Tile(board.getValue(row, col) * 2)); // set next val = prev * 2
-            board.setTile(row, col, null); //sets prev tile to null
-        }
+        } else if (board.getValue(row - 1, col) == -1){
+            // Case 2: Tile can shift --> shift, restart
+            board.setTile(row - 1, col, new Tile(board.getValue(row, col))); // swap
+            board.setTile(row, col, null); // reset
+            recurseUp(col, 1); // start over
 
-        if (board.getValue(row, col) != -1 && board.getValue(row - 1, col) == -1) { // can shift up due to blank tile above
-            board.setTile(row - 1, col, new Tile(board.getValue(row, col))); // set next val = prev
-            board.setTile(row, col, null); //sets prev tile to null
+        } else if(board.getValue(row - 1, col) == board.getValue(row, col)){
+            // Case 3: Tile can combine --> combine, restart
+            board.setTile(row - 1, col, new Tile(board.getValue(row, col) * 2)); // double
+            board.setTile(row, col, null); // reset
+            recurseUp(col, 1); // start over
+
+        } else {
+            // Case 4: Tile cannot shift nor combine --> move onto next Tile
+            recurseUp(col, row + 1);
         }
-        // can do nothing --> call function again
-        recurseUp(col, row - 1); //decrement row to move up in same col
     }
     public void recurseDown(int col, int row){ //TODO: Needs to be fixed
-        if (row == board.getSize() - 1) { // break case--> if end of row
-            return; // exit recursion
-        }
+        // pass in board size - 2 for row to start from 1 before bottom side
+        if ((board.getValue(row, col) == -1 && row == 0) || (row == 0 && board.getValue(row + 1, col) != board.getValue(row, col) && board.getValue(row + 1, col) != -1)){
+            // Base: Tile is empty && last Tile || Last Tile && cannot shift && cannot combine
+            return;
+        } else if (board.getValue(row, col) == -1) {
+            // Case 1: Tile is empty --> move onto next Tile
+            recurseDown(col, row - 1);
 
-        if (board.getValue(row, col) != -1 && board.getValue(row, col) == board.getValue(row + 1, col)){ // can combine since curr tile and next tile down are equal
-            board.setTile(row + 1, col, new Tile(board.getValue(row, col) * 2)); // set next val = prev * 2
-            board.setTile(row, col, null);//sets prev tile to null
-        }
+        } else if (board.getValue(row + 1, col) == -1){
+            // Case 2: Tile can shift --> shift, restart
+            board.setTile(row + 1, col, new Tile(board.getValue(row, col))); // swap
+            board.setTile(row, col, null); // reset
+            recurseDown(col, board.getSize() - 2); // start over
 
-        if (board.getValue(row, col) != -1 && board.getValue(row + 1, col) == -1) { // can shift down due to blank tile
-            board.setTile(row + 1, col, new Tile(board.getValue(row, col))); // set next val = prev
-            board.setTile(row, col, null);//sets prev tile to null
+        } else if(board.getValue(row + 1, col) == board.getValue(row, col)){
+            // Case 3: Tile can combine --> combine, restart
+            board.setTile(row + 1, col, new Tile(board.getValue(row, col) * 2)); // double
+            board.setTile(row, col, null); // reset
+            recurseDown(col, board.getSize() - 2); // start over
+
+        } else {
+            // Case 4: Tile cannot shift nor combine --> move onto next Tile
+            recurseDown(col, row - 1);
         }
-        // can do nothing --> call function again
-        recurseDown(col, row + 1); //moves down a row
     }
 }

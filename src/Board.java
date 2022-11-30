@@ -1,7 +1,3 @@
-import weiss.util.*;
-
-// Swap in Weiss Linked List
-
 public class Board{
     /**
      * Holds the value of each cube on the game_board
