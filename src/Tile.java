@@ -24,7 +24,7 @@ public class Tile {
         return value;
     }
 
-    public void setTileValue(Integer value){
+    public void setTileValue(int value){
         if(power2(value)) {
             this.value = value;
         } else{
@@ -38,11 +38,11 @@ public class Tile {
      * @return a boolean stating 'true' if it's a power of 2, and false otherwise
      */
     public boolean power2(double N){
-        if (N < 1){
+        if (N < 2){
             return false;
         }
 
-        if(N == 1){
+        if(N == 2){
             return true;
 
         }
@@ -54,4 +54,5 @@ public class Tile {
 
         return "" + value;
     }
+
 }

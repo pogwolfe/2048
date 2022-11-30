@@ -1,4 +1,6 @@
-import java.util.LinkedList;
+import weiss.util.*;
+
+// Swap in Weiss Linked List
 
 public class Board{
     /**

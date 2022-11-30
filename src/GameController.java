@@ -86,7 +86,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
     public void reset() {
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
-                board.getTile(i, j).setTileValue(null);
+                board.setTile(i, j, null);
             }
         }
     }
@@ -115,11 +115,11 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
                 if (board.getValue(i, j) == -1) { //checks to see if tile is blank
-                   availableTiles = true;
-                   break;
+                    availableTiles = true;
+                    break;
                 }
             }
-         }
+        }
         if (findSimilarNeighborsRecursive(0, 0) == true){ // if tiles can combine
             canCombine = true;
         }
