@@ -41,7 +41,6 @@ public class Tile {
         if (N < 2){
             return false;
         }
-
         if(N == 2){
             return true;
 
