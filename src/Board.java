@@ -119,6 +119,9 @@ public class Board{
 
     }
 
+    /**
+     * will print the board that is currently being played
+     */
     public void printBoard(){
         String boardText = "";
 
