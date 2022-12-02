@@ -1,5 +1,9 @@
 /**
  * Authors: Connor Wolfe, Parker Kuchulan, Catherine Stacey
+ * course: CIS 163 03
+ * Instructor: Professor Woodring
+ * date: December 2, 2022
+ * description: the class will display the text messages shown in the 2048 game
  */
 import java.util.Scanner;
 
