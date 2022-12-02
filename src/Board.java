@@ -1,5 +1,9 @@
 /**
  * Authors: Connor Wolfe, Parker Kuchulan, Catherine Stacey
+ * course: CIS 163 03
+ * Instructor: Professor Woodring
+ * date: December 2, 2022
+ * description: this class holds the board being played
  */
 public class Board{
     /**
@@ -11,7 +15,10 @@ public class Board{
      */
     private int size;
 
-    public Board(){ // default constructor will create a 4x4 game_board of LinkedLists
+    /**
+     * default constructor will create a 4x4 game_board of LinkedLists
+     */
+    public Board(){
         this(4);
     }
 
