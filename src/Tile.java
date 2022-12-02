@@ -2,6 +2,9 @@ public class Tile {
     // holds an integer value(can only be a power of 2)
     private int value;
 
+    /**
+     * default constructor for a new tile
+     */
     public Tile(){ // default value for new tiles is 2 or 4
         double a = Math.random();
         if(a > 0.5){
@@ -11,6 +14,9 @@ public class Tile {
         }
     }
 
+    /**
+     * @param value set the value of the new tile
+     */
     public Tile(int value){
         if(power2(value)) {
             this.value = value;
@@ -19,11 +25,17 @@ public class Tile {
         }
     }
 
+    /**
+     * @return the value of the tile
+     */
     public int getTileValue(){
 
         return value;
     }
 
+    /**
+     * @param value sets the value of the tile
+     */
     public void setTileValue(int value){
         if(power2(value)) {
             this.value = value;
@@ -49,6 +61,9 @@ public class Tile {
         return power2(N/2);
     }
 
+    /**
+     * @return a string of the value of the tile
+     */
     public String toString(){
 
         return "" + value;
