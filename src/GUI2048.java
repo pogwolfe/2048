@@ -32,6 +32,9 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
     private JMenuItem quitItem;
     private JMenuItem resetItem;
 
+    /**
+     * constructor for the gui
+     */
     public GUI2048(){
         int size = getSizeInput(); // collects size of board
         int winVal = getWinVal(); // collects winning #
@@ -40,10 +43,16 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         update();
     }
 
+    /**
+     * @return the current gamecontroller
+     */
     public GameController get_game(){
         return this.game;
     }
 
+    /**
+     * @return the size of the board inputed by the user, or the default size if nothing added
+     */
     public int getSizeInput(){
         int input_size = 0;
 
@@ -62,6 +71,10 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         }
         return input_size;
     }
+
+    /**
+     * @return the value to win the game inputed by the user or the defualt value if nothing was inputed
+     */
 
     public int getWinVal(){
         int input_winValue = 0;
@@ -82,6 +95,11 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         return input_winValue;
     }
 
+    /**
+     * @param N the value inputed by the user
+     * @return true if the value is able to be square rooted by 2, false if not
+     */
+
     private boolean power2(double N){
         if (N < 2){
             return false;
@@ -94,6 +112,9 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         return power2(N/2);
     }
 
+    /**
+     * @param status will display a message if the game is finished
+     */
     private void showStatus(GameStatus status) {
         if (status == GameStatus.WON) {
             JOptionPane.showMessageDialog(null, "Nice Job!");
@@ -104,6 +125,10 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         gui.dispose();
         gamesPlayedTracker++;
     }
+
+    /**
+     * intializes the board
+     */
 
     public void initialize(){ // setup GUI stuff
         keyDown = false;
@@ -178,6 +203,9 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         gui.setVisible(true);
     }
 
+    /**
+     * updates the board after very move
+     */
     public void update(){
 
         // update button colors
@@ -207,6 +235,10 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         }
 
     }
+
+    /**
+     * @return true if the game status has changed from IN_PROGRESS, false otherwise
+     */
     private boolean checkfinish(){
         boolean hasfinished = false;
         if(game.getStatus() != GameStatus.IN_PROGRESS){ // if game is over
@@ -219,6 +251,10 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         }
         return hasfinished;
     }
+
+    /**
+     *sets the color of the tiles
+     */
 
      private Color getColor(String value) {
          return switch (value) {
