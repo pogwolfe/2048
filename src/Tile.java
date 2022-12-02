@@ -1,5 +1,9 @@
 /**
  * Authors: Connor Wolfe, Parker Kuchulan, Catherine Stacey
+ * course: CIS 163 03
+ * Instructor: Professor Woodring
+ * date: December 2, 2022
+ * description: this class holds a tile, which hold the values displayed on the board and will randomly place tiles on the board for the game
  */
 public class Tile {
     // holds an integer value(can only be a power of 2)
@@ -18,6 +22,7 @@ public class Tile {
     }
 
     /**
+     * Tile() will set the value being held by the tiles on the board
      * @param value set the value of the new tile
      */
     public Tile(int value){
@@ -29,6 +34,7 @@ public class Tile {
     }
 
     /**
+     * getTileValue() will see the current value of a specfic tile and return it
      * @return the value of the tile
      */
     public int getTileValue(){
@@ -37,6 +43,7 @@ public class Tile {
     }
 
     /**
+     * setTileValue() will change the current value of a tile to the inputed parameter
      * @param value sets the value of the tile
      */
     public void setTileValue(int value){
@@ -65,6 +72,7 @@ public class Tile {
     }
 
     /**
+     * toString() creates a string will the values held by the tiles on the board
      * @return a string of the value of the tile
      */
     public String toString(){
