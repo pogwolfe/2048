@@ -1,3 +1,6 @@
+/**
+ * Authors: Connor Wolfe, Parker Kuchulan, Catherine Stacey
+ */
 public class Board{
     /**
      * Holds the value of each cube on the game_board
@@ -13,6 +16,8 @@ public class Board{
     }
 
     /**
+     * Board() takes in an int, checks if it is between 4 and 10
+     * and then makes a board with the parameter
      * @param size the size of the board
      */
     public Board(int size){ // legal board sizes are between 4 and 10
@@ -32,7 +37,7 @@ public class Board{
         }
     }
 
-    /**
+    /** our getsize() will return the size of the board
      * @return the size of the board
      */
 
@@ -40,7 +45,7 @@ public class Board{
         return size;
     }
 
-    /**
+    /** our hasEmpty() will check to see if any of the tiles on the board have a value
      * @return true if our game_board has available cells, false if otherwise
      */
     public boolean hasEmpty(){
@@ -54,7 +59,7 @@ public class Board{
         return false;
     }
 
-    /**
+    /** our getTile() will get the value held by the tile at a specfic value
      * @param row col , numbers specifying where on the board we want the tile
      * @return the tile at the row and col specification
      */
@@ -69,7 +74,7 @@ public class Board{
 
     }
 
-    /**
+    /** our setTile() will set the value held by a tile at a specfic location
      * @param row col ,numbers specifying where on the board we want to set the tile
      * @param t the tile being set
      */
@@ -84,7 +89,7 @@ public class Board{
 
     }
 
-    /**
+    /** our getVlaue() will return the value held by a specfic tile
      * @param row col , numbers specifying where on the board we want to get the value
      * @return the value at the row and col specification
      */
@@ -105,7 +110,7 @@ public class Board{
 
     }
 
-    /**
+    /** our check() will see if the inputed values are valid
      * @param row col , values that are being checked to see if they are within the board size
      * @return true if they are NOT within the board size, false if they are
      */

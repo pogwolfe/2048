@@ -1,3 +1,6 @@
+/**
+ * Authors: Connor Wolfe, Parker Kuchulan, Catherine Stacey
+ */
 public class Tile {
     // holds an integer value(can only be a power of 2)
     private int value;

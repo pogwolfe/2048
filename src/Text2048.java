@@ -1,3 +1,6 @@
+/**
+ * Authors: Connor Wolfe, Parker Kuchulan, Catherine Stacey
+ */
 import java.util.Scanner;
 
     public class Text2048 {

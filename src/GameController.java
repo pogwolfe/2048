@@ -1,5 +1,7 @@
 
-
+/**
+ * Authors: Connor Wolfe, Parker Kuchulan, Catherine Stacey
+ */
 
 import java.util.Random;
 

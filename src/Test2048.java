@@ -1,4 +1,7 @@
-/*import org.junit.Before;
+/**
+ * Authors: Connor Wolfe, Parker Kuchulan, Catherine Stacey
+ */
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -195,5 +198,5 @@ public class Test2048 {
         Board n = new Board();
         n.printBoard();
     }
-}*/
+}
 

@@ -1,3 +1,7 @@
+/**
+ * Authors: Connor Wolfe, Parker Kuchulan, Catherine Stacey
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -97,7 +101,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
 
     /**
      * @param N the value inputed by the user
-     * @return true if the value is able to be square rooted by 2, false if not
+     * @return true if the value is a valid power of 2, false if not
      */
 
     private boolean power2(double N){
@@ -129,7 +133,6 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
     /**
      * intializes the board
      */
-
     public void initialize(){ // setup GUI stuff
         keyDown = false;
         buttonListener = new ButtonListener();
