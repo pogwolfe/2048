@@ -1,5 +1,9 @@
 /**
  * Authors: Connor Wolfe, Parker Kuchulan, Catherine Stacey
+ * course: CIS 163 03
+ * Instructor: Professor Woodring
+ * date: December 2, 2022
+ * description: this class tests the methods in board() and tile()
  */
 import org.junit.Before;
 import org.junit.Test;
