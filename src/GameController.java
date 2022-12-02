@@ -1,16 +1,23 @@
 
 /**
  * Authors: Connor Wolfe, Parker Kuchulan, Catherine Stacey
+ * course: CIS 163 03
+ * Instructor: Professor Woodring
+ * date: December 2, 2022
+ * description: this class hold many of the game logic methods and has association wth Board, GameStatus, Text2048, GUI2048
  */
 
 import java.util.Random;
 
-public class GameController { // has association wth Board, GameStatus, Text2048, GUI2048
+public class GameController { //
 
     private Board board;
     private int WinVal;
     private GameStatus gameStatus;
 
+    /**
+     * default constructor that set basic parameter for  the game
+     */
     public GameController() {
         board  = new Board();
         WinVal = 2048;
@@ -18,7 +25,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         gameStatus = GameStatus.IN_PROGRESS;
     }
 
-    /**
+    /** This GameController constructor set different parameters for the game
      * @param size the size of the board
      * @param Val  the value needed to win the game
      */
@@ -30,6 +37,8 @@ public class GameController { // has association wth Board, GameStatus, Text2048
     }
 
     /**
+     * our newTile() looks for random spots on the board available and attempts to place a new tile
+     * Will not place a new tile if there are no Avialble spots
      * will place a new tile in a random empty spot on the board
      */
     public void newTile() {
@@ -68,14 +77,14 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         return gameStatus;
     }
 
-    /**
+    /**setGameStatus() will set the current gamestatus to the incoming parameter
      * @param gameStatus set the status of the game
      */
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
 
-    /**
+    /** getBoard() will return the current board being played
      * @return the board
      */
     public Board getBoard(){
@@ -109,7 +118,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
     }
 
     /**
-     * will set game status to GameStatus.LOST if all the cells on
+     * our checkloss() will set game status to GameStatus.LOST if all the cells on
      * the board are full and there are no similar neighbors to continue the game
      */
     public void checkLoss() { //checks to see if no more moves can be made and thus the game status is updated to lost
@@ -131,7 +140,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
     }
 
-    /**
+    /** findSimilarNeighborsRecursive() will indiviually check each tile on the board to see if there are available combination for the user to make
      * @param row, col specific starting point of the recursive method
      * to start looking through the board for similar neighbors to combine
      * @return true if there is an available combination
@@ -162,7 +171,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         return findSimilarNeighborsRecursive(row + 1, col); //return with row + 1
     }
 
-    /**
+    /** moveVertical() will call a recursive function based on if the user is attempting to move up or down in the game
      * @param num 1 if moving down, -1 if moving up
      */
     public void moveVertical(int num){
@@ -178,7 +187,7 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
     }
 
-    /**
+    /** moveHorizontal() will call a recursive function based on if the user is attempting to move left or right in the game
      * @param num 1 if moving right, -1 if moving left
      */
     public void moveHorizontal(int num){
@@ -195,10 +204,9 @@ public class GameController { // has association wth Board, GameStatus, Text2048
     }
 
     /**
-     * @param col , row
-     *  will move all numbers as far left as possible and make all possible combinations in the process
+     * recurseLeft() will move all numbers as far left as possible and make all possible combinations in the process
+     * @param col , row starting point for the recursion
      */
-
     public void recurseLeft(int col, int row){
         // pass in 1 for col to start from 1 before left side
         if ((board.getValue(row, col) == -1 && col == board.getSize() - 1) || (col == board.getSize() - 1 && board.getValue(row, col - 1) != board.getValue(row, col) && board.getValue(row, col - 1) != -1)){
@@ -227,8 +235,9 @@ public class GameController { // has association wth Board, GameStatus, Text2048
     }
 
     /**
-     * @param col @param row
-     * will move all numbers as far right as possible and make all possible combinations in the process
+     * recurseRight() will move all numbers as far right as possible and make all possible combinations in the process
+     * @param col @param row starting point for the recursion
+     *
      */
     public void recurseRight(int col, int row){
         // pass in board size - 2 for col to start from 1 before right side
@@ -258,8 +267,9 @@ public class GameController { // has association wth Board, GameStatus, Text2048
     }
 
     /**
-     * @param col @param row
-     * will move all numbers as far up as possible and make all possible combinations in the process
+     * recurseUp() will move all numbers as far up as possible and make all possible combinations in the process
+     * @param col @param row starting point for the recursion
+     *
      */
     public void recurseUp(int col, int row){
         // pass in board size - 2 for row to start from 1 before bottom side
@@ -288,8 +298,9 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
     }
     /**
-     * @param col @param row
-     * will move all numbers as far down as possible and make all possible combinations in the process
+     * recurseDown() will move all numbers as far down as possible and make all possible combinations in the process
+     * @param col @param row starting point for the recursion
+     *
      */
     public void recurseDown(int col, int row){ //TODO: Needs to be fixed
         // pass in board size - 2 for row to start from 1 before bottom side
