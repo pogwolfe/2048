@@ -129,6 +129,11 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
     }
 
+    /**
+     * @param row, col specific starting point of the recursive method
+     * to start looking through the board for similar neighbors to combine
+     * @return true if there is an available combination
+     */
     public boolean findSimilarNeighborsRecursive(int row, int col) {
         //NEW ATTEMPT
         if (row == board.getSize() - 1 && col == board.getSize() - 1) { //base case, if we are at the last possible tile
@@ -155,7 +160,10 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         return findSimilarNeighborsRecursive(row + 1, col); //return with row + 1
     }
 
-    public void moveVertical(int num){ // 1 if moving down, -1 if moving up
+    /**
+     * @param num 1 if moving down, -1 if moving up
+     */
+    public void moveVertical(int num){
         if(num == 1){ // if moving down
             for (int col = 0; col < board.getSize(); col++) {
                 recurseDown(col, board.getSize() - 2);
@@ -168,7 +176,10 @@ public class GameController { // has association wth Board, GameStatus, Text2048
         }
     }
 
-    public void moveHorizontal(int num){ // 1 if moving right, -1 if moving left
+    /**
+     * @param num 1 if moving right, -1 if moving left
+     */
+    public void moveHorizontal(int num){
         if(num == 1){ // if moving right
             for(int row = 0; row < board.getSize(); row++){ // tracks rows, starts at top right, ends at bottom left
                 recurseRight(board.getSize() - 2, row);
@@ -180,6 +191,11 @@ public class GameController { // has association wth Board, GameStatus, Text2048
             }
         }
     }
+
+    /**
+     * @param col , row
+     *  will move all numbers as far left as possible and make all possible combinations in the process
+     */
 
     public void recurseLeft(int col, int row){
         // pass in 1 for col to start from 1 before left side
@@ -207,6 +223,11 @@ public class GameController { // has association wth Board, GameStatus, Text2048
             recurseLeft(col + 1, row);
         }
     }
+
+    /**
+     * @param col @param row
+     * will move all numbers as far right as possible and make all possible combinations in the process
+     */
     public void recurseRight(int col, int row){
         // pass in board size - 2 for col to start from 1 before right side
         if ((board.getValue(row, col) == -1 && col == 0) || (col == 0 && board.getValue(row, col + 1) != board.getValue(row, col) && board.getValue(row, col + 1) != -1)){
@@ -233,6 +254,11 @@ public class GameController { // has association wth Board, GameStatus, Text2048
             recurseRight(col - 1, row);
         }
     }
+
+    /**
+     * @param col @param row
+     * will move all numbers as far up as possible and make all possible combinations in the process
+     */
     public void recurseUp(int col, int row){
         // pass in board size - 2 for row to start from 1 before bottom side
         if ((board.getValue(row, col) == -1 && row == board.getSize() - 1) || (row == board.getSize() - 1 && board.getValue(row - 1, col) != board.getValue(row, col) && board.getValue(row - 1, col) != -1)){
@@ -259,6 +285,10 @@ public class GameController { // has association wth Board, GameStatus, Text2048
             recurseUp(col, row + 1);
         }
     }
+    /**
+     * @param col @param row
+     * will move all numbers as far down as possible and make all possible combinations in the process
+     */
     public void recurseDown(int col, int row){ //TODO: Needs to be fixed
         // pass in board size - 2 for row to start from 1 before bottom side
         if ((board.getValue(row, col) == -1 && row == 0) || (row == 0 && board.getValue(row + 1, col) != board.getValue(row, col) && board.getValue(row + 1, col) != -1)){

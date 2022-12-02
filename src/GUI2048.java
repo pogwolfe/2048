@@ -68,7 +68,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
 
         // Attempt to get win value from user
         try {
-            while (input_winValue <= 3 /*|| power2(input_winValue)*/) { // HOW TO USE POWER2?
+            while (input_winValue <= 3 ||  !(power2(input_winValue))) { // HOW TO USE POWER2?
                 String s = JOptionPane.showInputDialog(null,
                         "Enter desired win value for 2048:");
                 if (s == null) {
@@ -80,6 +80,18 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
             input_winValue = 2048;
         }
         return input_winValue;
+    }
+
+    private boolean power2(double N){
+        if (N < 2){
+            return false;
+        }
+        if(N == 2){
+            return true;
+
+        }
+
+        return power2(N/2);
     }
 
     private void showStatus(GameStatus status) {
