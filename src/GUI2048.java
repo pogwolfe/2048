@@ -21,6 +21,8 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
      */
     private JPanel info_panel;
     private JButton[][] JButtonsBoard;
+    private int gamesPlayedTracker = 1;
+    private int gamesWonTracker = 0;
     private JLabel gamesPlayed;
     private JLabel gamesWon;
     /**
@@ -83,9 +85,12 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
     private void showStatus(GameStatus status) {
         if (status == GameStatus.WON) {
             JOptionPane.showMessageDialog(null, "Nice Job!");
+            gamesWonTracker++;
         } else if (status == GameStatus.LOST) { // if status == GameStatus.LOST
             JOptionPane.showMessageDialog(null, "Better luck next time!");
         }
+        gui.dispose();
+        gamesPlayedTracker++;
     }
 
     public void initialize(){ // setup GUI stuff
@@ -95,8 +100,8 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         game_panel = new JPanel();
         info_panel = new JPanel();
-        gamesPlayed = new JLabel("1");
-        gamesWon = new JLabel("0");
+        gamesPlayed = new JLabel("Games Played: " + gamesPlayedTracker);
+        gamesWon = new JLabel("Games Won: " + gamesWonTracker);
 
         // create fileMenu elements
         fileMenu = new JMenu("File:");
@@ -118,13 +123,17 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         // creates game_panel to hold the 2048 buttons
         game_panel = new JPanel();
         game_panel.setLayout(new GridLayout(game.getBoard().getSize(), game.getBoard().getSize()));
-        game_panel.setSize(new Dimension(500, 500));
+        game_panel.setBounds(0, 20, 160 * game.getBoard().getSize(), 160 * game.getBoard().getSize());
 
         // creates the info_panel to hold our movement buttons and display games played/won
         info_panel = new JPanel();
-        info_panel.setLayout(new GridLayout(6, 1)); // reformat movement buttons?
+
+        GridBagLayout layout = new GridBagLayout();
         info_panel.add(gamesPlayed);
+        info_panel.add(new JLabel("    |    "));
         info_panel.add(gamesWon);
+        info_panel.setLayout(layout);
+        info_panel.setBounds(((160 * game.getBoard().getSize()) / 2) - 155, 0, 300, 20);
 
         // creates the JButtonsBoard
         JButtonsBoard = new JButton[game.getBoard().getSize()][game.getBoard().getSize()];
@@ -148,9 +157,11 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
         // TODO: format the info_panel elements
         gui.getRootPane().setDefaultButton(JButtonsBoard[0][0]);
         game_panel.requestFocus();
+        //gui.setLayout(new GridLayout(2, 1));
+        gui.setLayout(null);
         gui.getContentPane().add(info_panel);
         gui.getContentPane().add(game_panel);
-        gui.setSize(610, 560);
+        gui.setSize(new Dimension(160 * game.getBoard().getSize() + 15, 160 * game.getBoard().getSize() + 80));
         gui.setJMenuBar(menus);
         gui.setVisible(true);
     }
