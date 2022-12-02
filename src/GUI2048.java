@@ -1,5 +1,9 @@
 /**
  * Authors: Connor Wolfe, Parker Kuchulan, Catherine Stacey
+ * course: CIS 163 03
+ * Instructor: Professor Woodring
+ * date: December 2, 2022
+ * description: this class is used to display the 2048 game, has JFrame and GUI2048Panel which extends JPanel
  */
 
 import javax.swing.*;
@@ -10,7 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 
-public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GUI2048Panel which extends JPanel
+public class GUI2048 extends JPanel implements KeyListener{ //
 
     private GameController game;
     private boolean keyDown; // for use in keyPressed & keyReleased
@@ -48,6 +52,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
     }
 
     /**
+     * GameController() will get the current GameController and return it
      * @return the current gamecontroller
      */
     public GameController get_game(){
@@ -55,6 +60,8 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
     }
 
     /**
+     * getSizeInput() will see for an input from the user and checks to see if it is valid, then set the size of the board, if invalid it will continue to ask
+     * if no input is used, it will set the default size of the board
      * @return the size of the board inputed by the user, or the default size if nothing added
      */
     public int getSizeInput(){
@@ -77,7 +84,9 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
     }
 
     /**
-     * @return the value to win the game inputed by the user or the defualt value if nothing was inputed
+     * getWin() will see for an input from the user and check to see if it is valid and will then set the winning value for the game,
+     * will set the default winning value if there is not input
+     * @return the value to win the game inputed by the user or the default value if nothing was inputed
      */
 
     public int getWinVal(){
@@ -100,6 +109,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
     }
 
     /**
+     * Power2() will recursively check the parameter to see if it is a valid power of 2
      * @param N the value inputed by the user
      * @return true if the value is a valid power of 2, false if not
      */
@@ -117,6 +127,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
     }
 
     /**
+     * showStatus() will display the message of if the game has either won or lost
      * @param status will display a message if the game is finished
      */
     private void showStatus(GameStatus status) {
@@ -131,7 +142,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
     }
 
     /**
-     * intializes the board
+     * intializes the board of the 2048 game
      */
     public void initialize(){ // setup GUI stuff
         keyDown = false;
@@ -240,6 +251,7 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
     }
 
     /**
+     * checkFinish() will see if the gamestatus has changed from gamestatus.IN_PROGRESS
      * @return true if the game status has changed from IN_PROGRESS, false otherwise
      */
     private boolean checkfinish(){
@@ -336,6 +348,10 @@ public class GUI2048 extends JPanel implements KeyListener{ // has JFrame and GU
 
     }
 
+    /**
+     * the main Method creates a new gui for the 2048
+     * @param args
+     */
 
     public static void main(String[] args){
         GUI2048 main_game = new GUI2048();
